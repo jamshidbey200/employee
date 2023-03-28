@@ -1,38 +1,35 @@
-import { useEffect, useMemo } from "react"
-import tablesStore from "store/tables.store"
-import { listToMap } from "utils/listToMap"
-
-
+import { useEffect, useMemo } from 'react';
+import tablesStore from 'store/tables.store';
+import { listToMap } from 'utils/listToMap';
 
 const useTableColumns = (tableSlug, columns) => {
-  
-  const columnsFromStore = tablesStore.columns[tableSlug]
-  
-  // const updateColumns = () => {
-  //   if(!columns) return
-  //   if(!columnsFromStore) tablesStore.setTableColumns(tableSlug, columns.map(column => ({ ...column, isVisible: true })))
+	const columnsFromStore = tablesStore.columns[tableSlug];
 
-  //   else {
-  //     const result = computeColumns(columnsFromStore, columns)
-  //     tablesStore.setTableColumns(tableSlug, result)
-  //   }
-  // }
+	// const updateColumns = () => {
+	//   if(!columns) return
+	//   if(!columnsFromStore) tablesStore.setTableColumns(tableSlug, columns.map(column => ({ ...column, isVisible: true })))
 
-  const setColumns = (columns) => {
-    tablesStore.setTableColumns(tableSlug, columns)
-  }
+	//   else {
+	//     const result = computeColumns(columnsFromStore, columns)
+	//     tablesStore.setTableColumns(tableSlug, result)
+	//   }
+	// }
 
-  const viewColumns = useMemo(() => {
-    return columnsFromStore?.filter(column => column.isVisible) ?? []
-  }, [columnsFromStore])
-  
-  useEffect(() => {
-    if(!columns) return
-    setColumns(columns?.map(column => ({...column, isVisible: true})))
-  }, [])
+	const setColumns = (columns) => {
+		tablesStore.setTableColumns(tableSlug, columns);
+	};
 
-  return { computedColumns: columnsFromStore, viewColumns, setColumns }
-}
+	const viewColumns = useMemo(() => {
+		return columnsFromStore?.filter((column) => column.isVisible) ?? [];
+	}, [columnsFromStore]);
+
+	useEffect(() => {
+		if (!columns) return;
+		setColumns(columns?.map((column) => ({ ...column, isVisible: true })));
+	}, []);
+
+	return { computedColumns: columnsFromStore, viewColumns, setColumns };
+};
 
 // const computeColumns = (storeColumns, columns) => {
 //   const computedColumns = []
@@ -48,8 +45,8 @@ const useTableColumns = (tableSlug, columns) => {
 //       delete columnsMap[column.key]
 //     }
 //   })
-  
+
 //   return [...computedColumns, ...Object.keys(columnsMap).map(column => ({ ...column, isVisible: true }))]
 // }
 
-export default useTableColumns
+export default useTableColumns;

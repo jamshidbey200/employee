@@ -19,7 +19,7 @@
       padding: 0 16px;
       margin-bottom: 4px;
       position: relative;
-      cursor: pointer;;
+      cursor: pointer;
 
       .element {
         height: 44px;
@@ -27,7 +27,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #9AA6AC;
+        color: #9aa6ac;
 
         .icon {
           font-size: 18px;
@@ -40,9 +40,7 @@
         }
       }
 
-
       &.active {
-
         .element {
           background-color: $primary-background;
           color: $primary;

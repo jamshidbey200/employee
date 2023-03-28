@@ -1,12 +1,7 @@
-import { Box } from "@chakra-ui/react";
-
-
-
+import { Box } from '@chakra-ui/react';
 
 const ButtonTabs = () => {
-  return ( <Box>
-    
-  </Box> );
-}
- 
+	return <Box></Box>;
+};
+
 export default ButtonTabs;

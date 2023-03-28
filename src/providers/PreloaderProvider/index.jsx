@@ -1,11 +1,10 @@
-import { useEffect } from "react"
-
+import { useEffect } from 'react';
 
 const PreloaderProvider = () => {
-  useEffect(() => {
-    document.querySelector('.preloader')?.remove()
-  }, [])
+	useEffect(() => {
+		document.querySelector('.preloader')?.remove();
+	}, []);
 
-  return null
-}
-export default PreloaderProvider
+	return null;
+};
+export default PreloaderProvider;
