@@ -8,6 +8,7 @@
     justify-content: space-between;
     padding: 0 16px;
     height: 64px;
+    border-bottom: 1px solid $border-color;
   }
 
   .body {
@@ -16,7 +17,7 @@
     padding: 12px 0;
 
     .row {
-      padding: 0 16px;
+      //padding: 0 16px;
       margin-bottom: 4px;
       position: relative;
       cursor: pointer;
@@ -47,7 +48,7 @@
         }
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           right: 0;
           top: 0;

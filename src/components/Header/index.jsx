@@ -1,9 +1,10 @@
 import styles from './index.module.scss';
-import { Box } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 
-export const Header = ({ children, ...props }) => {
+export const Header = ({ title, children, ...props }) => {
 	return (
 		<Box className={styles.header} {...props}>
+			<Heading fontSize="18px">{title}</Heading>
 			{children}
 		</Box>
 	);

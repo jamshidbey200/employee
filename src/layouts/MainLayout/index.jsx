@@ -1,21 +1,14 @@
 import { Box, Flex } from '@chakra-ui/react';
 import Sidebar from '../../components/Sidebar';
-import styles from './index.module.scss';
-import { FiUser, FiUsers } from 'react-icons/fi';
-import {
-	BiCog,
-	BiExtension,
-	BiHomeSmile,
-	BiMoney,
-	BiTask,
-} from 'react-icons/bi';
+import { FiUser } from 'react-icons/fi';
+import { BiHomeSmile } from 'react-icons/bi';
 import { Outlet } from 'react-router-dom';
 
 const elements = [
 	{
-		label: 'Дашборд',
+		label: 'Отделение',
 		icon: BiHomeSmile,
-		link: '/dashboard',
+		link: '/department',
 	},
 	{
 		label: 'Пользователи',
@@ -29,7 +22,7 @@ const MainLayout = () => {
 		<Flex>
 			<Sidebar elements={elements} />
 
-			<Box flex={1} overflowX="hidden">
+			<Box flex={1} background="#f0f0f3">
 				<Outlet />
 			</Box>
 		</Flex>
