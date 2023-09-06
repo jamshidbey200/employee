@@ -1,0 +1,48 @@
+.table {
+  background-color: #fff;
+  border-radius: 6px;
+  margin: 16px;
+  padding-top: 4px;
+  padding-bottom: 10px;
+
+  .numbers,
+  .table__header {
+    color: #1a2024;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.084px;
+    border: 1px solid #f4f6fa;
+    text-transform: capitalize !important;
+  }
+
+  .body__table {
+    border: 1px solid #f4f6fa;
+    width: 30px !important;
+
+    Td {
+      border: 1px solid #f4f6fa;
+
+      .action__icon {
+        border-radius: 6px;
+        border: 1px solid #e6e7e9;
+        display: flex;
+        justify-content: center;
+        background-color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pagination__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

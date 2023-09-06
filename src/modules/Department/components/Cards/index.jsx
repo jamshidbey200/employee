@@ -1,33 +1,79 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Input, Text } from '@chakra-ui/react';
+import BackButton from 'components/BackButton';
+import FormRow from 'components/FormElements/FormRow';
+import FormInput from 'components/FormElements/Input/FormInput';
+import Header, {
+	HeaderExtraSide,
+	HeaderLeftSide,
+	HeaderTitle,
+} from 'components/Header';
+import NotificationMenu from 'components/NotificationMenu';
+import { Page } from 'components/Page';
+import PageCard, {
+	PageCardFooter,
+	PageCardForm,
+	PageCardHeader,
+} from 'components/PageCard';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cards({ title = '', count = 0, icon = '' }) {
+	const navigate = useNavigate();
+	const { control } = useForm({});
 	return (
-		<Box
-			// width={"278px"}
-			height={'107px'}
-			background={'white'}
-			borderRadius={'16px'}
-			display={'flex'}
-			flexDirection={'column'}
-			justifyContent={'center'}
-			p={4}
-		>
-			<Flex justifyContent={'space-between'} align={'center'}>
-				<Box height={'100%'}>
-					<Heading
-						fontWeight={'400'}
-						lineHeight="19px"
-						fontSize={'16px'}
-						color={'#8A92A6'}
-					>
-						{title}
-					</Heading>
-					<Text fontWeight={'500'} fontSize={'33px'} lineHeight={'40px'}>
-						{count}
-					</Text>
-				</Box>
-				<Box>{icon}</Box>
-			</Flex>
-		</Box>
+		<>
+			<Header>
+				<HeaderLeftSide ml={'-40px'}>
+					<BackButton />
+					<HeaderTitle>Добавить</HeaderTitle>
+				</HeaderLeftSide>
+				<HeaderExtraSide></HeaderExtraSide>
+			</Header>
+			<Box
+				background={'white'}
+				borderRadius={'6px'}
+				display={'flex'}
+				flexDirection={'column'}
+				justifyContent={'center'}
+				p={4}
+				m={'16px'}
+			>
+				<Page p={4} h="calc(100vh - 56px)">
+					<PageCard w={600}>
+						<PageCardHeader>
+							<HeaderLeftSide>
+								<Heading fontSize="xl">Данные пользователя</Heading>
+							</HeaderLeftSide>
+						</PageCardHeader>
+
+						<PageCardForm p={6} spacing={8}>
+							<FormRow label="Имя:" required>
+								<FormInput
+									control={control}
+									name="first_name"
+									placeholder="Введите имя пользователя"
+									autoFocus
+									required
+								/>
+							</FormRow>
+							<FormRow label="Описание:" required>
+								<FormInput
+									control={control}
+									name="last_name"
+									placeholder="Введите oписание"
+									required
+								/>
+							</FormRow>
+						</PageCardForm>
+
+						<PageCardFooter mt={6}>
+							<Button type="submit" ml="auto" onClick={() => navigate(-1)}>
+                Сохранить
+							</Button>
+						</PageCardFooter>
+					</PageCard>
+				</Page>
+			</Box>
+		</>
 	);
 }
