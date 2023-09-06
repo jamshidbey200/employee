@@ -1,8 +1,9 @@
 import {
+  Box,
   Button,
   Popover,
+  PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
@@ -16,9 +17,13 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import cls from "./UserTable.module.scss";
-import { MdMoreHoriz, MdTableChart } from "react-icons/md";
-import { Select } from "@chakra-ui/react";
+import cls from "./Table.module.scss";
+import {
+  MdDeleteOutline,
+  MdMoreHoriz,
+  MdOutlineModeEdit,
+  MdTableChart,
+} from "react-icons/md";
 import {
   Previous,
   Paginator,
@@ -27,9 +32,8 @@ import {
   Container,
 } from "chakra-paginator";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
-import { AiFillFile } from "react-icons/ai";
-import { BsFileEarmark } from "react-icons/bs";
 import { BiFileBlank } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const tableHead = ["Name", "Description"];
 const tableBody = [
@@ -39,117 +43,117 @@ const tableBody = [
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "cvfdgb",
+    name: "Vali",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdgbf",
+    name: "Sardor",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdfgbh",
+    name: "Begzod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vfgbh",
+    name: "Saida",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "csdfvg",
+    name: "Mavluda",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "c dvf",
+    name: "Nozima",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "cdvf",
+    name: "Dilshod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "cdvf",
+    name: "Shuhrat",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "cvdf",
+    name: "Hamdam",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "cdvfg",
+    name: "Alisher",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdxf",
+    name: "Nodir",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "dvsfg",
+    name: "Doniyor",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdsfg",
+    name: "Hikmat",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdfs",
+    name: "Surat",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "vdfs",
+    name: "Aslbek",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "dvfv",
+    name: "Begzod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "sardor",
+    name: "Sardor",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "shahzod",
+    name: "Shahzod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "ziyod",
+    name: "Ziyod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "xursand",
+    name: "Xursand",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "rahmat",
+    name: "Rahmat",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "eshon",
+    name: "Eshon",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
   {
-    name: "dilshod",
+    name: "Dilshod",
     description:
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
@@ -164,15 +168,17 @@ const tableBody = [
       "lorem is not just a normal snippet—it's actually a generator. Every time you expand it, it will generate a 30-words dummy text",
   },
 ];
-export default function UserTable() {
+
+export default function UTable() {
   const [itemLimit, setItemLimit] = useState(10);
   const pagesQuantity = Math.ceil(tableBody.length / itemLimit);
   const [curPage, setCurPage] = useState(1);
   const [curItems, setCurItems] = useState([]);
   const initRef = React.useRef();
+  const navigate = useNavigate();
 
   const baseStyles = {
-    w: 35,
+    p: "4px 8px",
   };
 
   const normalStyles = {
@@ -232,10 +238,65 @@ export default function UserTable() {
                 <Td>{curPage * 10 - 10 + index + 1}</Td>
                 <Td>{el?.name}</Td>
                 <Td>{el?.description}</Td>
-                <Td>
-                  <div className={cls.action__icon}>
-                    <MdMoreHoriz size={25} color="#0e73f0" />
-                  </div>
+                <Td className={cls.actions}>
+                  <Popover>
+                    <PopoverTrigger>
+                      <button>
+                        <div className={cls.action__icon}>
+                          <MdMoreHoriz size={28} color="#0e73f0" />
+                        </div>
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverHeader
+                        onClick={() => navigate("/department/create")}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                          fontSize: "14px",
+                          lineHeight: "24px",
+                          letterSpacing: "0.084px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            backgroundColor: "#e3effe",
+                            padding: "8px",
+                            borderRadius: "6px",
+                          }}
+                        >
+                          <MdOutlineModeEdit color="#4094f7" />
+                        </Box>
+                        Изменить
+                      </PopoverHeader>
+                      <PopoverBody
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                          fontSize: "14px",
+                          lineHeight: "24px",
+                          letterSpacing: "0.084px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {" "}
+                        <Box
+                          sx={{
+                            backgroundColor: "#fee8e6",
+                            padding: "8px",
+                            borderRadius: "6px",
+                          }}
+                        >
+                          <MdDeleteOutline size={19} color="#f76659" />
+                        </Box>
+                        Удалить
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </Td>
               </Tr>
             ))}
@@ -266,6 +327,7 @@ export default function UserTable() {
                         gap: "12px",
                         color: "#303940",
                         fontWeight: 500,
+                        fontSize: "14px",
                       }}
                       value={itemLimit}
                       onChange={(e) => {
@@ -288,6 +350,12 @@ export default function UserTable() {
                             onClick={() => {
                               setItemLimit(itemLimits), onClose();
                             }}
+                            style={{
+                              fontSize: "14px",
+                              lineHeight: "26px",
+                              letterSpacing: "0.5px",
+                              textAlign: "left",
+                            }}
                           >
                             Показать по {itemLimits}
                           </option>
@@ -301,7 +369,10 @@ export default function UserTable() {
           </Container>
           <Container justify="right" pr={7}>
             <Previous m={6}>
-              <CgChevronLeft size={20} />
+              <CgChevronLeft
+                size={20}
+                className={curPage === 1 ? "#252c32" : cls.cgIcon}
+              />
             </Previous>
             <div className={cls.pagination}>
               <div>
@@ -311,7 +382,14 @@ export default function UserTable() {
               <div>{Math.floor(tableBody?.length)}</div>
             </div>
             <Next m={6}>
-              <CgChevronRight size={20} />
+              <CgChevronRight
+                size={20}
+                className={
+                  Math.ceil(tableBody?.length / itemLimit) === curPage
+                    ? "#252c32"
+                    : cls.cgIcon
+                }
+              />
             </Next>
           </Container>
         </div>

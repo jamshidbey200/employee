@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import Header from "components/Header";
-import UserTable from "components/UserTable/UserTable";
+import Table from "components/Table/Table";
 import { HiMiniPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const Department = () => {
           Create
         </Button>
       </Header>
-      <UserTable />
+      <Table />
     </>
   );
 };

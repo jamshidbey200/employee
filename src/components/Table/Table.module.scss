@@ -20,19 +20,26 @@
     border: 1px solid #f4f6fa;
     width: 30px !important;
 
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     Td {
       border: 1px solid #f4f6fa;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.084px;
 
       .action__icon {
         border-radius: 6px;
         border: 1px solid #e6e7e9;
         display: flex;
         justify-content: center;
-        margin-left: 20px;
         align-items: center;
         background-color: #fff;
         cursor: pointer;
-        width: 25px;
       }
     }
   }
@@ -47,5 +54,11 @@
       align-items: center;
       justify-content: space-between;
     }
+  }
+}
+
+.cgIcon {
+  path {
+    color: #0e73f0;
   }
 }
