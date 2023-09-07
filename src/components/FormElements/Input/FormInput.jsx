@@ -39,6 +39,7 @@ const FormInput = ({
 							autoFocus={autoFocus}
 							{...inputProps}
 							required={false}
+							height="40px"
 						/>
 						<InputRightElement width="2.5rem">
 							{inputRightElement}

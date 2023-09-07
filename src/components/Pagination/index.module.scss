@@ -1,0 +1,17 @@
+.pagination__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.cgIcon {
+  path {
+    color: #0e73f0;
+  }
+}

@@ -85,10 +85,11 @@ const UsersList = () => {
 	];
 
 	return (
-		<Box>
+	// <Box>
+		<>
 			<Header>
 				<HeaderLeftSide ml={-10}>
-					<HeaderTitle>Пользователи</HeaderTitle>
+					<HeaderTitle>Обозначение</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide>
 					<NotificationMenu />
@@ -97,7 +98,8 @@ const UsersList = () => {
 			</Header>
 
 			<UTable />
-		</Box>
+		</>
+	// </Box>
 	//   <Page p={4}>
 	//     <PageCard h='calc(100vh - 90px)'>
 	//       <PageCardHeader>

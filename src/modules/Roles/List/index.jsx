@@ -88,10 +88,10 @@ const UsersList = () => {
 		<Box>
 			<Header>
 				<HeaderLeftSide ml={-10}>
-					<HeaderTitle>Пользователи</HeaderTitle>
+					<HeaderTitle>Роли</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide>
-					<NotificationMenu />
+					{/* <NotificationMenu /> */}
 					<ProfileMenu />
 				</HeaderExtraSide>
 			</Header>
