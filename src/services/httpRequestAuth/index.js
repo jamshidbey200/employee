@@ -4,6 +4,7 @@ import authStore from '../../store/auth.store';
 
 const httpRequestAuth = axios.create({
 	baseURL: import.meta.env.VITE_AUTH_BASE_URL,
+	params: {},
 	timeout: 100000,
 });
 
@@ -54,9 +55,6 @@ httpRequestAuth.interceptors.request.use((config) => {
 	return config;
 });
 
-httpRequestAuth.interceptors.response.use(
-	(response) => response.data.data,
-	errorHandler
-);
+httpRequestAuth.interceptors.response.use((response) => response.data.data, errorHandler);
 
 export default httpRequestAuth;

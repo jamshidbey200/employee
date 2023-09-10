@@ -1,17 +1,15 @@
-const listToObject = (list, keySlug = "slug", valueSlug = "title") => {
-  const obj = {};
+const listToObject = (list, keySlug = 'slug', valueSlug = 'title') => {
+	const obj = {};
 
-  list.forEach((el) => {
-    console.log("el", el);
+	list.forEach((el) => {
+		if (el.type === 'Raw JSON input') {
+			obj[el[keySlug]] = JSON.parse(el.title);
+		} else {
+			obj[el[keySlug]] = el[valueSlug];
+		}
+	});
 
-    if (el.type === "Raw JSON input") {
-      obj[el[keySlug]] = JSON.parse(el.title);
-    } else {
-      obj[el[keySlug]] = el[valueSlug];
-    }
-  });
-
-  return obj;
+	return obj;
 };
 
 export default listToObject;

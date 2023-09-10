@@ -8,7 +8,6 @@ const UploadButton = () => {
 	const uploadFile = (e) => {
 		setLoading(true);
 		const file = e.target.files[0];
-		console.log(file);
 
 		setTimeout(() => {
 			setLoading(false);
@@ -19,9 +18,7 @@ const UploadButton = () => {
 		const handler = document.getElementById('inputFile');
 		handler.click();
 	};
-	useEffect(() => {
-		console.log('loading', loading);
-	}, [loading]);
+	useEffect(() => {}, [loading]);
 
 	return (
 		<div>
@@ -37,13 +34,7 @@ const UploadButton = () => {
 				{!loading ? (
 					<HiUpload size={22} color={'#B0BABF'} />
 				) : (
-					<Spinner
-						thickness="4px"
-						speed="0.65s"
-						emptyColor="gray.200"
-						color="primary.main"
-						size="xl"
-					/>
+					<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.main" size="xl" />
 				)}
 			</Center>
 			<input

@@ -7,25 +7,17 @@ import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components
 import { Page } from 'components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useCreateMutation, useGetByIdQuery, useUpdateMutation } from 'services/department.service';
+import { useNavigate } from 'react-router-dom';
 import queryClient from 'services/queryClient';
+import { useRoleCreateMutation, useRoleUpdateMutation } from 'services/roles.service';
 
-export default function Cards({ title = '', count = 0, icon = '' }) {
+export default function RolesCards() {
 	const navigate = useNavigate();
-	const { id } = useParams();
-	const { control, refetch, handleSubmit, reset } = useForm({});
+	const { control, refetch, handleSubmit } = useForm({});
 
-	const pathname = useParams();
-
-	const { mutate: createDepartment } = useCreateMutation({
+	const { mutate: createDepartment } = useRoleCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
-		},
-	});
-	const { mutate: updateDepartment } = useUpdateMutation({
-		onSuccess: () => {
-			navigate(-1);
 		},
 	});
 
@@ -58,12 +50,12 @@ export default function Cards({ title = '', count = 0, icon = '' }) {
 
 						<PageCardForm p={6} spacing={8} h="100%">
 							<FormRow label="Имя:" required>
-								<FormInput control={control} name="name" placeholder="Введите название" autoFocus required />
+								<FormInput control={control} name="name" placeholder="Введите имя пользователя" autoFocus required />
 							</FormRow>
 							<FormRow label="Описание:" required>
 								<FormInput control={control} name="description" placeholder="Введите oписание" required />
 							</FormRow>
-							<FormRow label="Отделение">
+							<FormRow label="Oтделение">
 								<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
 							</FormRow>
 						</PageCardForm>

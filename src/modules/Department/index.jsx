@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Department = () => {
 	const navigate = useNavigate();
+
 	return (
 		<>
 			<Header title="Отделение">
-				<Button onClick={() => navigate('/department/create')}>
-					<HiMiniPlus size={20} />
+				<Button onClick={() => navigate('/departments/create')}>
+					<HiMiniPlus size={17} />
           Create
 				</Button>
 			</Header>

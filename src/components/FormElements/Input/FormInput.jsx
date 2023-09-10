@@ -1,9 +1,4 @@
-import {
-	FormErrorMessage,
-	Input,
-	InputGroup,
-	InputRightElement,
-} from '@chakra-ui/react';
+import { FormErrorMessage, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
 
 const FormInput = ({
@@ -41,9 +36,7 @@ const FormInput = ({
 							required={false}
 							height="40px"
 						/>
-						<InputRightElement width="2.5rem">
-							{inputRightElement}
-						</InputRightElement>
+						<InputRightElement width="2.5rem">{inputRightElement}</InputRightElement>
 					</InputGroup>
 
 					<FormErrorMessage>{error?.message}</FormErrorMessage>

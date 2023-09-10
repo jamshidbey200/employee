@@ -34,14 +34,10 @@ const FormSelectWithIcons = ({
 		if (!withGroup) return options;
 
 		const arr = [];
-		options.forEach((option) =>
-			option.options?.forEach((opt) => arr.push(opt))
-		);
+		options.forEach((option) => option.options?.forEach((opt) => arr.push(opt)));
 
 		return arr;
 	}, [options, withGroup]);
-
-	console.log('computedOptions ==>', computedOptions);
 
 	return (
 		<Controller

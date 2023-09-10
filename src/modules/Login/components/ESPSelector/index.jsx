@@ -10,8 +10,6 @@ import styles from './index.module.scss';
 const ESPSelector = ({ selectedKey, setSelectedKey }) => {
 	const { isLoading, keys, error } = useESPKeys();
 
-	console.log('SELECTED KEY -->', selectedKey);
-
 	const clickHandler = (key) => {
 		if (!key.isValid) return;
 		setSelectedKey(key);
@@ -56,8 +54,7 @@ const ESPSelector = ({ selectedKey, setSelectedKey }) => {
 						</Text>
 					</HStack>
 					<Box className={styles.expired}>
-            ЭРИ амал килиш муддати:{' '}
-						<b>{format(new Date(key.validTo), 'dd.MM.yyyy')}</b>
+            ЭРИ амал килиш муддати: <b>{format(new Date(key.validTo), 'dd.MM.yyyy')}</b>
 					</Box>
 				</Box>
 			))}

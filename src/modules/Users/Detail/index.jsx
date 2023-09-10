@@ -5,83 +5,68 @@ import BackButton from '../../../components/BackButton';
 import FormRow from '../../../components/FormElements/FormRow';
 import FormInput from '../../../components/FormElements/Input/FormInput';
 import FormNumberInput from '../../../components/FormElements/Input/FormNumberInput';
-import Header, {
-	HeaderExtraSide,
-	HeaderLeftSide,
-	HeaderTitle,
-} from '../../../components/Header';
+import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import SimpleLoader from '../../../components/Loaders/SimpleLoader';
 import NotificationMenu from '../../../components/NotificationMenu';
 import { Page } from '../../../components/Page';
-import PageCard, {
-	PageCardFooter,
-	PageCardForm,
-	PageCardHeader,
-} from '../../../components/PageCard';
+import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from '../../../components/PageCard';
 import ProfileMenu from '../../../components/ProfileMenu';
 import useCustomToast from '../../../hooks/useCustomToast';
-import {
-	useUserCreateMutation,
-	useUserGetByIdQuery,
-	useUserUpdateMutation,
-} from '../../../services/user.service';
+import { useUserGetByIdQuery, useUserUpdateMutation } from '../../../services/user.service';
+import FormSelect from 'components/FormElements/Select/FormSelect';
 
 const UserDetail = () => {
 	const navigate = useNavigate();
-	const { userId } = useParams();
+	const { id } = useParams();
 	const { successToast } = useCustomToast();
 
 	const { control, reset, handleSubmit } = useForm({
-		defaultValues: {
-			user_type: 1,
-		},
+		defaultValues: {},
 	});
 
 	const { isLoading } = useUserGetByIdQuery({
-		id: userId,
+		id: id,
 		queryParams: {
 			cacheTime: false,
-			enabled: Boolean(userId),
+			enabled: Boolean(id),
 			onSuccess: reset,
 		},
 	});
 
-	const { mutate: createUser, isLoading: createLoading } =
-    useUserCreateMutation({
-    	onSuccess: () => {
-    		successToast();
-    		navigate(-1);
-    	},
-    });
-	const { mutate: updateUser, isLoading: updateLoading } =
-    useUserUpdateMutation({
-    	onSuccess: () => {
-    		successToast();
-    		navigate(-1);
-    	},
-    });
+	const { mutate: updateUser, isLoading: updateLoading } = useUserUpdateMutation({
+		onSuccess: () => {
+			successToast();
+			navigate(-1);
+		},
+	});
 
 	const onSubmit = (values) => {
-		const createData = {
-			first_name: values.first_name,
-			last_name: values.last_name,
-			pinfl: values.pinfl,
-			user_type: 1,
-		};
-
 		const updateData = {
 			first_name: values.first_name,
 			last_name: values.last_name,
-			pinfl: Number(values.pinfl),
+			phone_number: values.phone_number,
+			address: 'oo',
+			birth_date: '19.04.2001',
+			designation_id: '904e1cb5-467d-11ee-b5c6-02420a00002d', //
+			email: 'yostring@mail.ru',
+			emergency_contact_name: 'kjnikj',
+			emergency_contact_number: 'kjjnkj',
+			emergency_contact_relation: 'kjnkk ',
+			employee_id: 'stringlkkm;',
+			gender: 'female',
+			login: 'string;m;ml', //
+			marital_status: 'stringmklkm', //
+			nationality: 'stringlkn;kl', //
+			passport_expiry: 'stringlkmklm', //
+			passport_number: 'stringlkklmmk', //
+			password: 'stringcdsfrsfvdswvfslkknlk', //
+			role_id: 'a23860e2-45b1-11ee-be56-0242ac120002',
 		};
 
-		if (!userId) createUser(createData);
-		else {
-			updateUser({
-				id: userId,
-				data: updateData,
-			});
-		}
+		updateUser({
+			id: id,
+			...updateData,
+		});
 	};
 
 	if (isLoading) return <SimpleLoader h="100vh" />;
@@ -89,7 +74,7 @@ const UserDetail = () => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Header>
-				<HeaderLeftSide>
+				<HeaderLeftSide ml={-10}>
 					<BackButton />
 					<HeaderTitle>Пользователи</HeaderTitle>
 				</HeaderLeftSide>
@@ -108,40 +93,27 @@ const UserDetail = () => {
 					</PageCardHeader>
 
 					<PageCardForm p={6} spacing={8}>
-						<FormRow label="Имя:" required>
-							<FormInput
-								control={control}
-								name="first_name"
-								placeholder="Введите имя пользователя"
-								autoFocus
-								required
-							/>
+						<FormRow label="Имя:">
+							<FormInput control={control} name="first_name" placeholder="Введите имя пользователя" autoFocus />
 						</FormRow>
-						<FormRow label="Фамилия:" required>
-							<FormInput
-								control={control}
-								name="last_name"
-								placeholder="Введите фамилию пользователя"
-								required
-							/>
+						<FormRow label="Фамилия:">
+							<FormInput control={control} name="last_name" placeholder="Введите фамилию пользователя" />
 						</FormRow>
-						<FormRow label="ПИНФЛ:" required>
+						<FormRow label="Телефон:">
 							<FormNumberInput
 								control={control}
-								name="pinfl"
-								placeholder="Введите ПИНФЛ пользователя"
-								required
-								rules={{ minLength: 14, maxLength: 14 }}
+								name="phone_number"
+								placeholder="Введите телефон"
+								// rules={{ minLength: 14, maxLength: 14 }}
 							/>
+						</FormRow>
+						<FormRow label="Отделение">
+							<FormSelect control={control} name="department_id" placeholder="Введите oтделение" />
 						</FormRow>
 					</PageCardForm>
 
 					<PageCardFooter mt={6}>
-						<Button
-							isLoading={createLoading || updateLoading}
-							type="submit"
-							ml="auto"
-						>
+						<Button isLoading={updateLoading} type="submit" ml="auto">
               Сохранить
 						</Button>
 					</PageCardFooter>

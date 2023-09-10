@@ -3,37 +3,33 @@ import { Box, Button, IconButton } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DataTable from '../../../components/DataTable';
-import Header, {
-	HeaderExtraSide,
-	HeaderLeftSide,
-	HeaderTitle,
-} from '../../../components/Header';
+import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import NotificationMenu from '../../../components/NotificationMenu';
 import { Page } from '../../../components/Page';
 import PageCard, { PageCardHeader } from '../../../components/PageCard';
 import ProfileMenu from '../../../components/ProfileMenu';
 import {
 	useUserDeleteMutation,
-	useUsersListQuery,
+	// useUsersListQuery,
 } from '../../../services/user.service';
 import styles from './index.module.scss';
 import UTable from 'components/Table/Table';
+import { HiMiniPlus } from 'react-icons/hi2';
 
 const UsersList = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [pageSize, setPageSize] = useState(30);
 
-	const {
-		data: { users, count } = {},
-		isLoading,
-		refetch,
-	} = useUsersListQuery();
+	// const {
+	// 	data: { users, count } = {},
+	// 	isLoading,
+	// 	refetch,
+	// } = useUsersListQuery();
 
-	const { mutate: deleteUser, isLoading: deleteLoading } =
-    useUserDeleteMutation({
-    	onSuccess: refetch,
-    });
+	const { mutate: deleteUser, isLoading: deleteLoading } = useUserDeleteMutation({
+		// onSuccess: refetch,
+	});
 
 	const navigateToCreatePage = () => {
 		navigate(`${pathname}/create`);
@@ -73,11 +69,7 @@ const UsersList = () => {
 			width: 50,
 			align: 'center',
 			render: (_, row, index) => (
-				<IconButton
-					onClick={(e) => onDeleteClick(e, row)}
-					colorScheme="red"
-					variant="outline"
-				>
+				<IconButton onClick={(e) => onDeleteClick(e, row)} colorScheme="red" variant="outline">
 					<DeleteIcon />
 				</IconButton>
 			),
@@ -91,8 +83,12 @@ const UsersList = () => {
 					<HeaderTitle>Роли</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide>
-					{/* <NotificationMenu /> */}
-					<ProfileMenu />
+					<Button onClick={() => navigate('/roles/create')}>
+						<HiMiniPlus size={17} />
+            Create
+					</Button>
+					{/* <NotificationMenu />
+					<ProfileMenu /> */}
 				</HeaderExtraSide>
 			</Header>
 

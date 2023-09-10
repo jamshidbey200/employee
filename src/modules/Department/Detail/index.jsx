@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../../components/BackButton';
 import FormRow from '../../../components/FormElements/FormRow';
 import FormInput from '../../../components/FormElements/Input/FormInput';
+import Textarea from '../../../components/FormElements/Input/TextArea';
 import FormNumberInput from '../../../components/FormElements/Input/FormNumberInput';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import SimpleLoader from '../../../components/Loaders/SimpleLoader';
@@ -12,22 +13,20 @@ import { Page } from '../../../components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from '../../../components/PageCard';
 import ProfileMenu from '../../../components/ProfileMenu';
 import useCustomToast from '../../../hooks/useCustomToast';
-import { useGetRoleByIdQuery, useRoleUpdateMutation } from 'services/roles.service';
-import Textarea from 'components/FormElements/Input/TextArea';
+import { useUserCreateMutation, useUserGetByIdQuery, useUserUpdateMutation } from '../../../services/user.service';
+import { useGetByIdQuery, useUpdateMutation } from 'services/department.service';
 import cls from './Detail.module.scss';
 
-const RoleDetail = () => {
+const DepartmentDetail = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { successToast } = useCustomToast();
 
 	const { control, reset, handleSubmit } = useForm({
-		defaultValues: {
-			user_type: 1,
-		},
+		defaultValues: {},
 	});
 
-	const { isLoading } = useGetRoleByIdQuery({
+	const { isLoading } = useGetByIdQuery({
 		id: id,
 		queryParams: {
 			cacheTime: false,
@@ -36,7 +35,7 @@ const RoleDetail = () => {
 		},
 	});
 
-	const { mutate: updateRole, isLoading: updateLoading } = useRoleUpdateMutation({
+	const { mutate: updateUser, isLoading: updateLoading } = useUpdateMutation({
 		onSuccess: () => {
 			successToast();
 			navigate(-1);
@@ -48,8 +47,7 @@ const RoleDetail = () => {
 			name: values.name,
 			description: values.description,
 		};
-
-		updateRole({
+		updateUser({
 			id: id,
 			...updateData,
 		});
@@ -62,7 +60,7 @@ const RoleDetail = () => {
 			<Header>
 				<HeaderLeftSide ml={-10}>
 					<BackButton />
-					<HeaderTitle>Пользователи</HeaderTitle>
+					<HeaderTitle>Отделение</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide>
 					<NotificationMenu />
@@ -74,15 +72,15 @@ const RoleDetail = () => {
 				<PageCard w={600}>
 					<PageCardHeader>
 						<HeaderLeftSide>
-							<Heading fontSize="xl">Данные пользователя</Heading>
+							<Heading fontSize="xl">Все данные</Heading>
 						</HeaderLeftSide>
 					</PageCardHeader>
 
 					<PageCardForm p={6} spacing={8}>
-						<FormRow label="Название:" required>
-							<FormInput control={control} name="name" placeholder="Введите имя пользователя" autoFocus required />
+						<FormRow label="Название:">
+							<FormInput control={control} name="name" placeholder="Название..." autoFocus required />
 						</FormRow>
-						<FormRow label="Описание:" required>
+						<FormRow label="Описание:">
 							<Textarea
 								className={cls.textarea}
 								control={control}
@@ -103,4 +101,4 @@ const RoleDetail = () => {
 		</form>
 	);
 };
-export default RoleDetail;
+export default DepartmentDetail;

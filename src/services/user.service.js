@@ -2,11 +2,9 @@ import { useMutation, useQuery } from 'react-query';
 import httpRequestAuth from './httpRequestAuth';
 
 const userService = {
-	getList: (params) => httpRequestAuth.get('v1/user', params),
-	getByID: (id, params) => httpRequestAuth.get(`v1/user/${id}`, { params }),
-	update: (data) => httpRequestAuth.patch('v1/user', data),
-	delete: (id, params) => httpRequestAuth.delete(`v2/user/${id}`, { params }),
-	create: (data) => httpRequestAuth.post('v1/admin/register', data),
+	getByID: (id, params) => httpRequestAuth.get(`/user/${id}`, { params }),
+	update: (data) => httpRequestAuth.put('user', data),
+	create: (data) => httpRequestAuth.post('user', data),
 };
 
 export const useUsersListQuery = ({ params = {}, queryParams } = {}) => {
@@ -15,7 +13,7 @@ export const useUsersListQuery = ({ params = {}, queryParams } = {}) => {
 		() => {
 			return userService.getList(params);
 		},
-		queryParams
+		queryParams,
 	);
 };
 
@@ -25,7 +23,7 @@ export const useUserGetByIdQuery = ({ id, params = {}, queryParams }) => {
 		() => {
 			return userService.getByID(id, params);
 		},
-		queryParams
+		queryParams,
 	);
 };
 

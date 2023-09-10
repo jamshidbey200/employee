@@ -36,7 +36,6 @@ const ColumnsModal = ({ closeModal, tableSlug }) => {
 	const onDrop = (dropResult) => {
 		const result = applyDrag(columns, dropResult);
 		if (result) {
-			console.log('sssss');
 			move(dropResult.removedIndex, dropResult.addedIndex);
 		}
 	};
@@ -68,20 +67,12 @@ const ColumnsModal = ({ closeModal, tableSlug }) => {
 								<Draggable key={column.title}>
 									<HStack key={column.title} className={styles.row}>
 										<HStack className={styles.titleBlock}>
-											<IconButton
-												variant="ghost"
-												className="drag-handler"
-												cursor="grab"
-											>
+											<IconButton variant="ghost" className="drag-handler" cursor="grab">
 												<DragHandleIcon />
 											</IconButton>
 											<Text>{column.title}</Text>
 										</HStack>
-										<FormCheckbox
-											size="lg"
-											control={control}
-											name={`columns.${index}.isVisible`}
-										/>
+										<FormCheckbox size="lg" control={control} name={`columns.${index}.isVisible`} />
 									</HStack>
 								</Draggable>
 							))}
