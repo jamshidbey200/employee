@@ -17,8 +17,8 @@ import React, { useEffect, useState } from 'react';
 import cls from './Table.module.scss';
 import { MdDeleteOutline, MdMoreHoriz, MdOutlineModeEdit, MdTableChart } from 'react-icons/md';
 
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Pagination from 'components/Pagination/Pagination';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import Pagination from 'components/Pagination/Pagination';
 import { useDeleteMutation, useGetAllDepartmentList } from 'services/department.service';
 
 export default function UTable() {
@@ -80,7 +80,7 @@ export default function UTable() {
 
 	const slug = pathname.slice(0, -1);
 
-	console.log('curIems', curItems);
+	console.log('curIems', slug);
 
 	return (
 		<div className={cls.table}>
