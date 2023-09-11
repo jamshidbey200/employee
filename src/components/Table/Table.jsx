@@ -18,7 +18,7 @@ import cls from './Table.module.scss';
 import { MdDeleteOutline, MdMoreHoriz, MdOutlineModeEdit, MdTableChart } from 'react-icons/md';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-// import Pagination from 'components/Pagination/Pagination';
+import Pagination from 'components/Pagination/Pagination';
 import { useDeleteMutation, useGetAllDepartmentList } from 'services/department.service';
 
 export default function UTable() {
@@ -72,7 +72,6 @@ export default function UTable() {
 				<>
 					<Th className={cls.table__header}>Название</Th>
 					<Th className={cls.table__header}>Описание</Th>
-					<Th></Th>
 				</>
 			);
 		}
@@ -80,11 +79,9 @@ export default function UTable() {
 
 	const slug = pathname.slice(0, -1);
 
-	console.log('curIems', slug);
-
 	return (
 		<div className={cls.table}>
-			<TableContainer sx={{ border: '1px solid #F4F6FA', margin: '16px' }}>
+			<TableContainer sx={{ border: '1px solid #F4F6FA', margin: '16px', borderRadius: '6px' }}>
 				<Box overflowY="auto" maxHeight="77vh">
 					<Table variant="striped" colorScheme="gray">
 						<Thead position="sticky" top={-1} bgColor={'white'}>
@@ -113,67 +110,74 @@ export default function UTable() {
 										<Td className={cls.desc} onClick={() => navigate(mypath)}>
 											{el?.description || el?.last_name}
 										</Td>
-										<Td className={cls.desc} onClick={() => navigate(mypath)}>
-											{el?.phone_number}
-										</Td>
+										{el?.phone_number && (
+											<Td className={cls.desc} onClick={() => navigate(mypath)}>
+												{el?.phone_number}
+											</Td>
+										)}
+
 										<Td className={cls.actions}>
 											<Popover>
-												<PopoverTrigger>
-													<button>
-														<div className={cls.action__icon}>
-															<MdMoreHoriz size={28} color="#0e73f0" />
-														</div>
-													</button>
-												</PopoverTrigger>
-												<PopoverContent>
-													<PopoverHeader
-														onClick={() => navigate(mypath)}
-														sx={{
-															display: 'flex',
-															alignItems: 'center',
-															gap: '12px',
-															fontSize: '14px',
-															lineHeight: '24px',
-															letterSpacing: '0.084px',
-															cursor: 'pointer',
-														}}
-													>
-														<Box
-															sx={{
-																backgroundColor: '#e3effe',
-																padding: '8px',
-																borderRadius: '6px',
-															}}
-														>
-															<MdOutlineModeEdit color="#4094f7" />
-														</Box>
-                            Изменить
-													</PopoverHeader>
-													<PopoverBody
-														sx={{
-															display: 'flex',
-															alignItems: 'center',
-															gap: '12px',
-															fontSize: '14px',
-															lineHeight: '24px',
-															letterSpacing: '0.084px',
-															cursor: 'pointer',
-														}}
-														onClick={() => deleteDepartment(mypathRemove)}
-													>
-														{' '}
-														<Box
-															sx={{
-																backgroundColor: '#fee8e6',
-																padding: '8px',
-																borderRadius: '6px',
-															}}
-														>
-															<MdDeleteOutline size={19} color="#f76659" />
-														</Box>
-                            Удалить
-													</PopoverBody>
-												</PopoverContent>
+												{({ isOpen, onClose }) => (
+													<>
+														<PopoverTrigger>
+															<button>
+																<div className={cls.action__icon}>
+																	<MdMoreHoriz size={28} color="#0e73f0" /> {isOpen}
+																</div>
+															</button>
+														</PopoverTrigger>
+														<PopoverContent onClick={onClose}>
+															<PopoverHeader
+																onClick={() => navigate(mypath)}
+																sx={{
+																	display: 'flex',
+																	alignItems: 'center',
+																	gap: '12px',
+																	fontSize: '14px',
+																	lineHeight: '24px',
+																	letterSpacing: '0.084px',
+																	cursor: 'pointer',
+																}}
+															>
+																<Box
+																	sx={{
+																		backgroundColor: '#e3effe',
+																		padding: '8px',
+																		borderRadius: '6px',
+																	}}
+																>
+																	<MdOutlineModeEdit color="#4094f7" />
+																</Box>
+                                Изменить
+															</PopoverHeader>
+															<PopoverBody
+																sx={{
+																	display: 'flex',
+																	alignItems: 'center',
+																	gap: '12px',
+																	fontSize: '14px',
+																	lineHeight: '24px',
+																	letterSpacing: '0.084px',
+																	cursor: 'pointer',
+																}}
+																onClick={() => deleteDepartment(mypathRemove)}
+															>
+																{' '}
+																<Box
+																	sx={{
+																		backgroundColor: '#fee8e6',
+																		padding: '8px',
+																		borderRadius: '6px',
+																	}}
+																>
+																	<MdDeleteOutline size={19} color="#f76659" />
+																</Box>
+                                Удалить
+															</PopoverBody>
+														</PopoverContent>
+													</>
+												)}
 											</Popover>
 										</Td>
 									</Tr>
@@ -184,13 +188,18 @@ export default function UTable() {
 				</Box>
 			</TableContainer>
 
-			{/* <Pagination
-				handlePageChange={handlePageChange}
-				pagesQuantity={pagesQuantity}
-				setItemLimit={setItemLimit}
-				tableBody={curItems}
-				curPage={curPage}
-			/> */}
+			{data?.count < 11 ? (
+				''
+			) : (
+				<Pagination
+					handlePageChange={handlePageChange}
+					pagesQuantity={pagesQuantity}
+					setItemLimit={setItemLimit}
+					tableBody={curItems}
+					curPage={curPage}
+					itemLimit={itemLimit}
+				/>
+			)}
 		</div>
 	);
 }
