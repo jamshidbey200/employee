@@ -1,8 +1,6 @@
 import {
 	Box,
-	Button,
 	Popover,
-	PopoverArrow,
 	PopoverBody,
 	PopoverContent,
 	PopoverHeader,
@@ -21,22 +19,16 @@ import { MdDeleteOutline, MdMoreHoriz, MdOutlineModeEdit, MdTableChart } from 'r
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Pagination from 'components/Pagination/Pagination';
-import {
-	useDeleteMutation,
-	useGetAllDepartmentList,
-	useGetByIdQuery,
-	useUpdateMutation,
-} from 'services/department.service';
-import { useForm } from 'react-hook-form';
+import { useDeleteMutation, useGetAllDepartmentList } from 'services/department.service';
 
 export default function UTable() {
 	const { pathname } = useLocation();
 	const [curItems, setCurItems] = useState([]);
+	const [dataCount, setDataCount] = useState(0);
 	const [itemLimit, setItemLimit] = useState(10);
-	const pagesQuantity = Math.ceil(curItems?.length / itemLimit);
+	const pagesQuantity = Math.ceil(dataCount / itemLimit);
 	const [curPage, setCurPage] = useState(1);
 	const navigate = useNavigate();
-	const { id } = useParams();
 
 	const { data, refetch } = useGetAllDepartmentList({
 		params: {
@@ -53,6 +45,7 @@ export default function UTable() {
 	useEffect(() => {
 		const offset = (curPage - 1) * itemLimit;
 		const getList = (curPage, itemLimit) => {
+			setDataCount(data?.count);
 			setCurItems(data?.[pathname.slice(1)]);
 		};
 		getList(curPage, itemLimit);
@@ -133,7 +126,6 @@ export default function UTable() {
 													</button>
 												</PopoverTrigger>
 												<PopoverContent>
-													{/* <PopoverArrow /> */}
 													<PopoverHeader
 														onClick={() => navigate(mypath)}
 														sx={{
@@ -191,17 +183,14 @@ export default function UTable() {
 					</Table>
 				</Box>
 			</TableContainer>
-			{curItems?.length < 11 ? (
-				''
-			) : (
-				<Pagination
-					handlePageChange={handlePageChange}
-					pagesQuantity={pagesQuantity}
-					setItemLimit={setItemLimit}
-					tableBody={curItems}
-					curPage={curPage}
-				/>
-			)}
+
+			{/* <Pagination
+				handlePageChange={handlePageChange}
+				pagesQuantity={pagesQuantity}
+				setItemLimit={setItemLimit}
+				tableBody={curItems}
+				curPage={curPage}
+			/> */}
 		</div>
 	);
 }

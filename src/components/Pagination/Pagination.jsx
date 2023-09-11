@@ -1,31 +1,11 @@
-import {
-	Button,
-	Popover,
-	PopoverBody,
-	PopoverContent,
-	PopoverTrigger,
-	Portal,
-} from '@chakra-ui/react';
+import { Button, Popover, PopoverBody, PopoverContent, PopoverTrigger, Portal } from '@chakra-ui/react';
 import React from 'react';
 import cls from './index.module.scss';
-import {
-	Previous,
-	Paginator,
-	PageGroup,
-	Next,
-	Container,
-} from 'chakra-paginator';
+import { Previous, Paginator, PageGroup, Next, Container } from 'chakra-paginator';
 import { CgChevronLeft, CgChevronRight } from 'react-icons/cg';
 import { BiFileBlank } from 'react-icons/bi';
 
-function Pagination({
-	handlePageChange,
-	pagesQuantity,
-	setItemLimit,
-	itemLimit,
-	tableBody,
-	curPage,
-}) {
+function Pagination({ handlePageChange, pagesQuantity, setItemLimit, itemLimit, tableBody, curPage }) {
 	const initRef = React.useRef();
 	const baseStyles = {
 		p: '4px 8px',
@@ -55,11 +35,7 @@ function Pagination({
 			>
 				<div className={cls.pagination__wrap}>
 					<Container justify="left" pl={17}>
-						<Popover
-							closeOnBlur={true}
-							placement="top"
-							initialFocusRef={initRef}
-						>
+						<Popover closeOnBlur={true} placement="bottom" initialFocusRef={initRef}>
 							{({ isOpen, onClose }) => (
 								<>
 									<PopoverTrigger>
@@ -83,9 +59,7 @@ function Pagination({
 										</Button>
 									</PopoverTrigger>
 									<Portal>
-										<PopoverContent
-											sx={{ width: '157px !important', textAlign: 'center' }}
-										>
+										<PopoverContent sx={{ width: '157px !important', textAlign: 'center' }}>
 											<PopoverBody sx={{ cursor: 'pointer' }}>
 												{numbers.map((itemLimits) => (
 													<option
@@ -113,10 +87,7 @@ function Pagination({
 					</Container>
 					<Container justify="right" pr={7}>
 						<Previous m={6}>
-							<CgChevronLeft
-								size={20}
-								className={curPage === 1 ? '#252c32' : cls.cgIcon}
-							/>
+							<CgChevronLeft size={20} className={curPage === 1 ? '#252c32' : cls.cgIcon} />
 						</Previous>
 						<div className={cls.pagination}>
 							<div>
@@ -128,11 +99,7 @@ function Pagination({
 						<Next m={6}>
 							<CgChevronRight
 								size={20}
-								className={
-									Math.ceil(tableBody?.length / itemLimit) === curPage
-										? '#252c32'
-										: cls.cgIcon
-								}
+								className={Math.ceil(tableBody?.length / itemLimit) === curPage ? '#252c32' : cls.cgIcon}
 							/>
 						</Next>
 					</Container>
