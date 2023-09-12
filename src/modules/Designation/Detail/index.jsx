@@ -16,6 +16,7 @@ import { useUserCreateMutation, useUserGetByIdQuery, useUserUpdateMutation } fro
 import Textarea from 'components/FormElements/Input/TextArea';
 import cls from './Detail.module.scss';
 import { useDesignationUpdateMutation, useGetDesignationByIdQuery } from 'services/designation.service';
+import FormSelect from 'components/FormElements/Select/FormSelect';
 
 const DesignationDetail = () => {
 	const navigate = useNavigate();
@@ -83,6 +84,9 @@ const DesignationDetail = () => {
 						</FormRow>
 						<FormRow label="Описание:">
 							<Textarea className={cls.textarea} control={control} name="description" placeholder="Описание..." />
+						</FormRow>
+						<FormRow label="Отделение">
+							<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
 						</FormRow>
 					</PageCardForm>
 

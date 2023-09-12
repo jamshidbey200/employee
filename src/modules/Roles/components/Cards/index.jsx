@@ -55,9 +55,9 @@ export default function RolesCards() {
 							<FormRow label="Описание:" required>
 								<FormInput control={control} name="description" placeholder="Введите oписание" required />
 							</FormRow>
-							<FormRow label="Oтделение">
+							{/* <FormRow label="Oтделение">
 								<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
-							</FormRow>
+							</FormRow> */}
 						</PageCardForm>
 
 						<PageCardFooter mt={6}>

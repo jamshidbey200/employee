@@ -62,13 +62,9 @@ export default function DesignationsCards({ title = '', count = 0, icon = '' }) 
 							<FormRow label="Описание:" required>
 								<FormInput control={control} name="description" placeholder="Введите oписание" required />
 							</FormRow>
-							{/* <FormRow label="Отделение">
-								<FormInput
-									control={control}
-									name="department_id"
-									placeholder="Введите отделение"
-								/>
-							</FormRow> */}
+							<FormRow label="Отделение">
+								<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
+							</FormRow>
 						</PageCardForm>
 
 						<PageCardFooter mt={6}>
