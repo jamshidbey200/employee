@@ -9,6 +9,7 @@ const FormSelect = ({
 	disabled,
 	defaultValue = '',
 	customOnChange = () => {},
+	required,
 	...props
 }) => {
 	return (
@@ -34,6 +35,7 @@ const FormSelect = ({
 					formatGroupLabel={formatGroupLabel}
 					{...props}
 					size="lg"
+					required={required}
 				/>
 			)}
 		/>

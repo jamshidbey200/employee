@@ -2,6 +2,7 @@ import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
 import FormRow from 'components/FormElements/FormRow';
 import FormInput from 'components/FormElements/Input/FormInput';
+import FormNumberInput from 'components/FormElements/Input/FormNumberInput';
 import FormPhoneInput from 'components/FormElements/Input/FormPhoneInput';
 import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
@@ -21,6 +22,7 @@ export default function UsersCards() {
 	const { mutate: createUser } = useUserCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
+			navigate(-1);
 		},
 	});
 
@@ -70,61 +72,218 @@ export default function UsersCards() {
 							</HeaderLeftSide>
 						</PageCardHeader>
 
-						<PageCardForm p={6} spacing={8} h="100%" zIndex={1002}>
-							<FormRow label="Имя:">
-								<FormInput control={control} name="first_name" placeholder="Введите имя пользователя" autoFocus />
+						<PageCardForm p={6} spacing={8} h="100%">
+							<FormRow label="Имя:" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="first_name"
+									placeholder="Введите имя пользователя"
+									autoFocus
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Фамилия">
-								<FormInput control={control} name="last_name" placeholder="Введите фамилия" />
+							<FormRow label="Фамилия" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="last_name"
+									placeholder="Введите фамилия"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Телефон">
-								<FormPhoneInput control={control} name="phone_number" placeholder="Введите телефон" />
+							<FormRow label="Телефон" required={true}>
+								<FormPhoneInput control={control} name="phone_number" placeholder="Введите телефон" required={true} />
 							</FormRow>
-							<FormRow label="Адрес">
-								<FormInput control={control} name="address" placeholder="Введите адрес" />
+							<FormRow label="Адрес" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="address"
+									placeholder="Введите адрес"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="День рождения">
-								<FormInput control={control} name="birth_date" placeholder="Введите день рождения" />
+							<FormRow label="День рождения" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="birth_date"
+									placeholder="Введите день рождения"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Электронная почта">
-								<FormInput control={control} name="email" placeholder="Введите электронная почта" />
+							<FormRow label="Электронная почта" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="email"
+									placeholder="Введите электронная почта"
+								/>
 							</FormRow>
-							<FormRow label="Экстренное имя">
-								<FormInput control={control} name="emergency_contact_name" placeholder="Введите экстренное имя" />
+							<FormRow label="Экстренное имя" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="emergency_contact_name"
+									placeholder="Введите экстренное имя"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Экстренный номер">
-								<FormInput control={control} name="emergency_contact_number" placeholder="Введите экстренный номер" />
+							<FormRow label="Экстренный номер" required={true}>
+								<FormPhoneInput
+									control={control}
+									name="emergency_contact_number"
+									placeholder="Введите экстренный номер"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="emergency_contact_relation">
+							<FormRow label="emergency_contact_relation" required={true}>
 								<FormInput
 									control={control}
 									name="emergency_contact_relation"
 									placeholder="Введите emergency_contact_relation"
+									required={true}
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
 								/>
 							</FormRow>
-							<FormRow label="Пол">
-								<FormInput control={control} name="gender" placeholder="Введите пол" />
+							<FormRow label="Пол" required={true}>
+								<FormSelect control={control} name="gender" placeholder="Введите пол" required={true} />
 							</FormRow>
-							<FormRow label="Логин">
-								<FormInput control={control} name="login" placeholder="Введите логин" />
+							<FormRow label="Логин" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="login"
+									placeholder="Введите логин"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Пароль">
-								<FormInput control={control} name="password" placeholder="Введите пароль" />
+							<FormRow label="Пароль" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="password"
+									placeholder="Введите пароль"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="marital_status">
-								<FormInput control={control} name="marital_status" placeholder="Введите marital_status" />
+							<FormRow label="marital_status" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="marital_status"
+									placeholder="Введите marital_status"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Национальность">
-								<FormInput control={control} name="nationality" placeholder="Введите национальность" />
+							<FormRow label="Национальность" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="nationality"
+									placeholder="Введите национальность"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Пасспорт серия">
-								<FormInput control={control} name="passport_expiry" placeholder="Введите пасспорт серия" />
+							<FormRow label="Пасспорт серия" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="passport_expiry"
+									placeholder="Введите пасспорт серия"
+									required={true}
+								/>
 							</FormRow>
-							<FormRow label="Пасспорт номер">
-								<FormInput control={control} name="passport_number" placeholder="Введите пасспорт номер" />
+							<FormRow label="Пасспорт номер" required={true}>
+								<FormNumberInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="passport_number"
+									placeholder="Введите пасспорт номер"
+									required={true}
+									min={7}
+									max={7}
+								/>
 							</FormRow>
-							<FormRow label="Статус">
-								<FormInput control={control} name="status" placeholder="Введите статус" />
+							<FormRow label="Статус" required={true}>
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="status"
+									placeholder="Введите статус"
+									required={true}
+								/>
 							</FormRow>
 							<FormRow label="Обозначение">
 								<FormSelect control={control} name="designation_id" placeholder="Введите oбозначение" />
@@ -138,13 +297,7 @@ export default function UsersCards() {
 						</PageCardForm>
 
 						<PageCardFooter mt={6}>
-							<Button
-								type="submit"
-								ml="auto"
-								onClick={() => {
-									navigate(-1);
-								}}
-							>
+							<Button type="submit" ml="auto">
                 Сохранить
 							</Button>
 						</PageCardFooter>

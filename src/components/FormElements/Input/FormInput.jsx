@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 
 const FormInput = ({
 	control,
-	required = false,
+	required,
 	name,
 	inputProps = {},
 	disabled = false,
@@ -12,6 +12,7 @@ const FormInput = ({
 	defaultValue = '',
 	placeholder = '',
 	autoFocus = false,
+	validation,
 	...props
 }) => {
 	return (
@@ -19,7 +20,7 @@ const FormInput = ({
 			name={name}
 			control={control}
 			defaultValue={defaultValue}
-			rules={{ required }}
+			rules={validation}
 			render={({ field: { onChange, value }, fieldState: { error } }) => (
 				<>
 					<InputGroup {...props}>
@@ -36,6 +37,7 @@ const FormInput = ({
 							required={false}
 							height="40px"
 						/>
+
 						<InputRightElement width="2.5rem">{inputRightElement}</InputRightElement>
 					</InputGroup>
 
