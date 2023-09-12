@@ -34,7 +34,7 @@ const Router = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<MainLayout />}>
-				<Route index element={<Navigate to="/dashboard" />} />
+				<Route index element={<Department to="/departments" />} />
 				<Route path="/departments" element={<Department />} />
 				<Route path="departments/create" element={<Cards />} />
 				<Route path="departments/:id" element={<DepartmentDetail />} />
@@ -47,10 +47,10 @@ const Router = () => {
 				<Route path="designations" element={<Designation />} />
 				<Route path="designations/create" element={<DesignationsCards />} />
 				<Route path="designations/:id" element={<DesignationDetail />} />
-				<Route path="*" element={<Navigate to="/dashboard" />} />
+				<Route path="*" element={<Department to="/departments" />} />
 			</Route>
 
-			<Route path="*" element={<Navigate to="/dashboard" />} />
+			<Route path="*" element={<Department to="/departments" />} />
 		</Routes>
 	);
 };
