@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Select } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
 import FormRow from 'components/FormElements/FormRow';
 import FormInput from 'components/FormElements/Input/FormInput';
@@ -6,22 +6,21 @@ import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
+import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useDesignationCreateMutation, useDesignationUpdateMutation } from 'services/designation.service';
+import { useDesignationCreateMutation } from 'services/designation.service';
 import queryClient from 'services/queryClient';
 
-export default function DesignationsCards({ title = '', count = 0, icon = '' }) {
+export default function DesignationsCards() {
 	const navigate = useNavigate();
-	const { control, refetch, handleSubmit, reset } = useForm({});
+	const { control, handleSubmit } = useForm({});
+	const { successToast } = useCustomToast();
 
 	const { mutate: createDesignation } = useDesignationCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
-		},
-	});
-	const { mutate: updateDepartment } = useDesignationUpdateMutation({
-		onSuccess: () => {
+			successToast();
 			navigate(-1);
 		},
 	});
@@ -68,7 +67,7 @@ export default function DesignationsCards({ title = '', count = 0, icon = '' }) 
 						</PageCardForm>
 
 						<PageCardFooter mt={6}>
-							<Button type="submit" ml="auto" onClick={() => navigate(-1)}>
+							<Button type="submit" ml="auto">
                 Сохранить
 							</Button>
 						</PageCardFooter>

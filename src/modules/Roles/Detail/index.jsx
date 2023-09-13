@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../../components/BackButton';
 import FormRow from '../../../components/FormElements/FormRow';
 import FormInput from '../../../components/FormElements/Input/FormInput';
-import FormNumberInput from '../../../components/FormElements/Input/FormNumberInput';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import SimpleLoader from '../../../components/Loaders/SimpleLoader';
 import NotificationMenu from '../../../components/NotificationMenu';
@@ -21,11 +20,7 @@ const RoleDetail = () => {
 	const { id } = useParams();
 	const { successToast } = useCustomToast();
 
-	const { control, reset, handleSubmit } = useForm({
-		defaultValues: {
-			user_type: 1,
-		},
-	});
+	const { control, reset, handleSubmit } = useForm({});
 
 	const { isLoading } = useGetRoleByIdQuery({
 		id: id,

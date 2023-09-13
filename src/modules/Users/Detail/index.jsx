@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../../components/BackButton';
 import FormRow from '../../../components/FormElements/FormRow';
 import FormInput from '../../../components/FormElements/Input/FormInput';
-import FormNumberInput from '../../../components/FormElements/Input/FormNumberInput';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import SimpleLoader from '../../../components/Loaders/SimpleLoader';
 import NotificationMenu from '../../../components/NotificationMenu';
@@ -94,24 +93,6 @@ const UserDetail = () => {
 					</PageCardHeader>
 
 					<PageCardForm p={6} spacing={8}>
-						{/* <FormRow label="Имя:">
-							<FormInput control={control} name="first_name" placeholder="Введите имя пользователя" autoFocus />
-						</FormRow>
-						<FormRow label="Фамилия:">
-							<FormInput control={control} name="last_name" placeholder="Введите фамилию пользователя" />
-						</FormRow>
-						<FormRow label="Телефон:">
-							<FormNumberInput
-								control={control}
-								name="phone_number"
-								placeholder="Введите телефон"
-								rules={{ minLength: 14, maxLength: 14 }}
-							/>
-						</FormRow>
-						<FormRow label="Отделение">
-							<FormSelect control={control} name="department_id" placeholder="Введите oтделение" />
-						</FormRow> */}
-
 						<FormRow label="Имя:">
 							<FormInput control={control} name="first_name" placeholder="Введите имя пользователя" autoFocus />
 						</FormRow>

@@ -5,7 +5,6 @@ import BackButton from '../../../components/BackButton';
 import FormRow from '../../../components/FormElements/FormRow';
 import FormInput from '../../../components/FormElements/Input/FormInput';
 import Textarea from '../../../components/FormElements/Input/TextArea';
-import FormNumberInput from '../../../components/FormElements/Input/FormNumberInput';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from '../../../components/Header';
 import SimpleLoader from '../../../components/Loaders/SimpleLoader';
 import NotificationMenu from '../../../components/NotificationMenu';
@@ -13,7 +12,6 @@ import { Page } from '../../../components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from '../../../components/PageCard';
 import ProfileMenu from '../../../components/ProfileMenu';
 import useCustomToast from '../../../hooks/useCustomToast';
-import { useUserCreateMutation, useUserGetByIdQuery, useUserUpdateMutation } from '../../../services/user.service';
 import { useGetByIdQuery, useUpdateMutation } from 'services/department.service';
 import cls from './Detail.module.scss';
 

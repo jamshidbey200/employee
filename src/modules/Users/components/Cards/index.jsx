@@ -8,21 +8,22 @@ import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
+import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import queryClient from 'services/queryClient';
 import { useUserCreateMutation } from 'services/user.service';
 
 export default function UsersCards() {
 	const navigate = useNavigate();
 	const { control, handleSubmit } = useForm({});
-	const pathname = useLocation();
+	const { successToast } = useCustomToast();
 
 	const { mutate: createUser } = useUserCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
 			navigate(-1);
+			successToast();
 		},
 	});
 

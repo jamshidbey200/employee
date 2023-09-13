@@ -1,23 +1,26 @@
-import { Box, Button, Heading, Select } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
 import FormRow from 'components/FormElements/FormRow';
 import FormInput from 'components/FormElements/Input/FormInput';
-import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
+import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import queryClient from 'services/queryClient';
-import { useRoleCreateMutation, useRoleUpdateMutation } from 'services/roles.service';
+import { useRoleCreateMutation } from 'services/roles.service';
 
 export default function RolesCards() {
 	const navigate = useNavigate();
-	const { control, refetch, handleSubmit } = useForm({});
+	const { control, handleSubmit } = useForm({});
+	const { successToast } = useCustomToast();
 
 	const { mutate: createDepartment } = useRoleCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
+			navigate(-1);
+			successToast();
 		},
 	});
 
@@ -50,18 +53,38 @@ export default function RolesCards() {
 
 						<PageCardForm p={6} spacing={8} h="100%">
 							<FormRow label="Имя:" required>
-								<FormInput control={control} name="name" placeholder="Введите имя пользователя" autoFocus required />
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="name"
+									placeholder="Введите имя пользователя"
+									autoFocus
+									required
+								/>
 							</FormRow>
 							<FormRow label="Описание:" required>
-								<FormInput control={control} name="description" placeholder="Введите oписание" required />
+								<FormInput
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+									control={control}
+									name="description"
+									placeholder="Введите oписание"
+									required
+								/>
 							</FormRow>
-							{/* <FormRow label="Oтделение">
-								<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
-							</FormRow> */}
 						</PageCardForm>
 
 						<PageCardFooter mt={6}>
-							<Button type="submit" ml="auto" onClick={() => navigate(-1)}>
+							<Button type="submit" ml="auto">
                 Сохранить
 							</Button>
 						</PageCardFooter>

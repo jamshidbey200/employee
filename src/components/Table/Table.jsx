@@ -43,8 +43,7 @@ export default function UTable() {
 	};
 
 	useEffect(() => {
-		const offset = (curPage - 1) * itemLimit;
-		const getList = (curPage, itemLimit) => {
+		const getList = () => {
 			setDataCount(data?.count);
 			setCurItems(data?.[pathname.slice(1)]);
 		};
