@@ -193,9 +193,7 @@ export default function UTable() {
 				</Box>
 			</TableContainer>
 
-			{data?.count < 11 ? (
-				''
-			) : (
+			{data?.count > 11 && (
 				<Pagination
 					handlePageChange={handlePageChange}
 					pagesQuantity={pagesQuantity}

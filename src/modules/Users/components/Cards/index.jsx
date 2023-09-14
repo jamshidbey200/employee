@@ -13,6 +13,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import queryClient from 'services/queryClient';
 import { useUserCreateMutation } from 'services/user.service';
+import cls from './index.module.scss';
+import { useGetAllDepartmentList } from 'services/department.service';
 
 export default function UsersCards() {
 	const navigate = useNavigate();
@@ -27,6 +29,30 @@ export default function UsersCards() {
 		},
 	});
 
+	const { data: designations } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/designations',
+	});
+
+	const { data: roles } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/roles',
+	});
+
+	// const { data: employees } = useGetAllDepartmentList({
+	// 	params: {
+	// 		limit: 10,
+	// 		offset: 0,
+	// 	},
+	// 	tableSlug: '/employee',
+	// });
+
 	const onSubmit = (values) => {
 		const createData = {
 			first_name: values.first_name,
@@ -34,7 +60,7 @@ export default function UsersCards() {
 			phone_number: values.phone_number,
 			address: values.address,
 			birth_date: values.birth_date,
-			designation_id: '904e1cb5-467d-11ee-b5c6-02420a00002d',
+			designation_id: values.designation_id,
 			email: values.email,
 			emergency_contact_name: values.emergency_contact_name,
 			emergency_contact_number: values.emergency_contact_number,
@@ -48,11 +74,16 @@ export default function UsersCards() {
 			passport_expiry: values.passport_expiry,
 			passport_number: values.passport_number,
 			password: values.password,
-			role_id: 'a23860e2-45b1-11ee-be56-0242ac120002',
+			role_id: values.role_id,
 		};
 
 		createUser(createData);
 	};
+
+	const genders = [
+		{ label: 'male', value: 'male' },
+		{ label: 'female', value: 'female' },
+	];
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -64,16 +95,15 @@ export default function UsersCards() {
 				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 			<Box borderRadius={'6px'} display={'flex'} flexDirection={'column'} justifyContent={'center'} p={4}>
-				<Page>
-					{/* h='calc(100vh - 56px)' */}
-					<PageCard w={600} h="calc(90vh - 56px)">
+				<Page h="calc(93vh - 56px)">
+					<PageCard w={600}>
 						<PageCardHeader>
 							<HeaderLeftSide>
 								<Heading fontSize="xl">Данные пользователя</Heading>
 							</HeaderLeftSide>
 						</PageCardHeader>
 
-						<PageCardForm p={6} spacing={8} h="100%">
+						<PageCardForm p={6} spacing={8} h="100%" className={cls.form}>
 							<FormRow label="Имя:" required={true}>
 								<FormInput
 									validation={{
@@ -104,7 +134,7 @@ export default function UsersCards() {
 								/>
 							</FormRow>
 							<FormRow label="Телефон" required={true}>
-								<FormPhoneInput control={control} name="phone_number" placeholder="Введите телефон" required={true} />
+								<FormPhoneInput control={control} name="phone_number" required={true} />
 							</FormRow>
 							<FormRow label="Адрес" required={true}>
 								<FormInput
@@ -162,12 +192,7 @@ export default function UsersCards() {
 								/>
 							</FormRow>
 							<FormRow label="Экстренный номер" required={true}>
-								<FormPhoneInput
-									control={control}
-									name="emergency_contact_number"
-									placeholder="Введите экстренный номер"
-									required={true}
-								/>
+								<FormPhoneInput control={control} name="emergency_contact_number" required={true} />
 							</FormRow>
 							<FormRow label="emergency_contact_relation" required={true}>
 								<FormInput
@@ -184,7 +209,13 @@ export default function UsersCards() {
 								/>
 							</FormRow>
 							<FormRow label="Пол" required={true}>
-								<FormSelect control={control} name="gender" placeholder="Введите пол" required={true} />
+								<FormSelect
+									options={genders.map((el) => ({ label: el.label, value: el.value }))}
+									control={control}
+									name="gender"
+									placeholder="Введите пол"
+									required={true}
+								/>
 							</FormRow>
 							<FormRow label="Логин" required={true}>
 								<FormInput
@@ -286,14 +317,31 @@ export default function UsersCards() {
 									required={true}
 								/>
 							</FormRow>
-							<FormRow label="Обозначение">
-								<FormSelect control={control} name="designation_id" placeholder="Введите oбозначение" />
+							<FormRow label="Обозначение" required>
+								<FormSelect
+									options={designations?.designations?.map((el) => ({ label: el?.name, value: el?.id }))}
+									control={control}
+									name="designation_id"
+									placeholder="Введите oбозначение"
+									required
+								/>
 							</FormRow>
-							<FormRow label="Рол ползователья">
-								<FormSelect control={control} name="role_id" placeholder="Введите рол ползователя" />
+							<FormRow label="Рол ползователья" required>
+								<FormSelect
+									options={roles?.roles?.map((el) => ({ label: el?.name, value: el?.id }))}
+									control={control}
+									name="role_id"
+									placeholder="Введите рол ползователя"
+									required
+								/>
 							</FormRow>
 							<FormRow label="employee_id">
-								<FormSelect control={control} name="employee_id" placeholder="Введите employee_id" />
+								<FormSelect
+									//  options={employees?.employees?.roles?.map((el) => ({label: el?.name, value: el?.id}))}
+									control={control}
+									name="employee_id"
+									placeholder="Введите employeer"
+								/>
 							</FormRow>
 						</PageCardForm>
 

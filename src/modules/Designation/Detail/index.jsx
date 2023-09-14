@@ -15,11 +15,20 @@ import Textarea from 'components/FormElements/Input/TextArea';
 import cls from './Detail.module.scss';
 import { useDesignationUpdateMutation, useGetDesignationByIdQuery } from 'services/designation.service';
 import FormSelect from 'components/FormElements/Select/FormSelect';
+import { useGetAllDepartmentList } from 'services/department.service';
 
 const DesignationDetail = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { successToast } = useCustomToast();
+
+	const { data } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/departments',
+	});
 
 	const { control, reset, handleSubmit } = useForm({
 		defaultValues: {},
@@ -60,7 +69,7 @@ const DesignationDetail = () => {
 			<Header>
 				<HeaderLeftSide ml={-10}>
 					<BackButton />
-					<HeaderTitle>Пользователи</HeaderTitle>
+					<HeaderTitle>Обозначение</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide>
 					<NotificationMenu />
@@ -68,11 +77,11 @@ const DesignationDetail = () => {
 				</HeaderExtraSide>
 			</Header>
 
-			<Page p={4} h="calc(100vh - 56px)">
+			<Page p={4} h="100% !important">
 				<PageCard w={600}>
 					<PageCardHeader>
 						<HeaderLeftSide>
-							<Heading fontSize="xl">Данные пользователя</Heading>
+							<Heading fontSize="xl">Все данные</Heading>
 						</HeaderLeftSide>
 					</PageCardHeader>
 
@@ -80,11 +89,16 @@ const DesignationDetail = () => {
 						<FormRow label="Название:">
 							<FormInput control={control} name="name" placeholder="Введите название" autoFocus />
 						</FormRow>
+						<FormRow label="Отделение">
+							<FormSelect
+								options={data?.departments?.map((el) => ({ label: el?.name, value: el?.id }))}
+								control={control}
+								name="department_id"
+								placeholder="Введите отделение"
+							/>
+						</FormRow>
 						<FormRow label="Описание:">
 							<Textarea className={cls.textarea} control={control} name="description" placeholder="Описание..." />
-						</FormRow>
-						<FormRow label="Отделение">
-							<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
 						</FormRow>
 					</PageCardForm>
 

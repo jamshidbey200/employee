@@ -13,6 +13,7 @@ import ProfileMenu from '../../../components/ProfileMenu';
 import useCustomToast from '../../../hooks/useCustomToast';
 import { useUserGetByIdQuery, useUserUpdateMutation } from '../../../services/user.service';
 import FormSelect from 'components/FormElements/Select/FormSelect';
+import { useGetAllDepartmentList } from 'services/department.service';
 
 const UserDetail = () => {
 	const navigate = useNavigate();
@@ -21,6 +22,22 @@ const UserDetail = () => {
 
 	const { control, reset, handleSubmit } = useForm({
 		defaultValues: {},
+	});
+
+	const { data: designations } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/designations',
+	});
+
+	const { data: roles } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/roles',
 	});
 
 	const { isLoading } = useUserGetByIdQuery({
@@ -46,7 +63,7 @@ const UserDetail = () => {
 			phone_number: values.phone_number,
 			address: values.address,
 			birth_date: values.birth_date,
-			designation_id: '904e1cb5-467d-11ee-b5c6-02420a00002d',
+			designation_id: values.designation_id,
 			email: values.email,
 			emergency_contact_name: values.emergency_contact_name,
 			emergency_contact_number: values.emergency_contact_number,
@@ -60,7 +77,7 @@ const UserDetail = () => {
 			passport_expiry: values.passport_expiry,
 			passport_number: values.passport_number,
 			password: values.password,
-			role_id: 'a23860e2-45b1-11ee-be56-0242ac120002',
+			role_id: values.role_id,
 		};
 
 		updateUser({
@@ -78,17 +95,14 @@ const UserDetail = () => {
 					<BackButton />
 					<HeaderTitle>Пользователи</HeaderTitle>
 				</HeaderLeftSide>
-				<HeaderExtraSide>
-					<NotificationMenu />
-					<ProfileMenu />
-				</HeaderExtraSide>
+				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 
-			<Page p={4} h="calc(100vh - 56px)">
+			<Page p={4} h="calc(97vh - 56px)">
 				<PageCard w={600}>
 					<PageCardHeader>
 						<HeaderLeftSide>
-							<Heading fontSize="xl">Данные пользователя</Heading>
+							<Heading fontSize="xl">Все данные</Heading>
 						</HeaderLeftSide>
 					</PageCardHeader>
 
@@ -145,14 +159,21 @@ const UserDetail = () => {
 						<FormRow label="Пасспорт номер">
 							<FormInput control={control} name="passport_number" placeholder="Введите пасспорт номер" />
 						</FormRow>
-						<FormRow label="Статус">
-							<FormInput control={control} name="status" placeholder="Введите статус" />
-						</FormRow>
 						<FormRow label="Обозначение">
-							<FormSelect control={control} name="designation_id" placeholder="Введите oбозначение" />
+							<FormSelect
+								options={designations?.designations?.map((el) => ({ label: el?.name, value: el?.id }))}
+								control={control}
+								name="designation_id"
+								placeholder="Введите oбозначение"
+							/>
 						</FormRow>
 						<FormRow label="Рол ползователья">
-							<FormSelect control={control} name="role_id" placeholder="Введите рол ползователья" />
+							<FormSelect
+								options={roles?.roles?.map((el) => ({ label: el?.name, value: el?.id }))}
+								control={control}
+								name="role_id"
+								placeholder="Введите рол ползователья"
+							/>
 						</FormRow>
 						<FormRow label="employee_id">
 							<FormSelect control={control} name="employee_id" placeholder="Введите employee_id" />

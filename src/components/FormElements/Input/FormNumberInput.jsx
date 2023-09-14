@@ -34,16 +34,9 @@ const FormNumberInput = ({
 				<>
 					<InputGroup {...props}>
 						{inputLeftElement}
-
 						<NumberInput w="full" value={value} onChange={onChange} min={min} max={max} focusBorderColor="primary.main">
-							<NumberInputField readOnly={disabled} placeholder={placeholder} required={false} />
-							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
-							</NumberInputStepper>
+							<NumberInputField h="40px" readOnly={disabled} placeholder={placeholder} required={false} />
 						</NumberInput>
-
-						<InputRightElement width="2.5rem">{inputRightElement}</InputRightElement>
 					</InputGroup>
 
 					<FormErrorMessage>{error?.message}</FormErrorMessage>

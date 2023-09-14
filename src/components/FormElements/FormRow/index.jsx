@@ -10,8 +10,6 @@ const FormRow = ({ label = '', color, required, children, boxProps = {}, ...prop
 			<Box px={'1px'} {...boxProps}>
 				{children}
 			</Box>
-
-			{/* <FormHelperText>We'll never share your email.</FormHelperText> */}
 		</FormControl>
 	);
 };

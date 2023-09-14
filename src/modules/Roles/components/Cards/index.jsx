@@ -2,6 +2,7 @@ import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
 import FormRow from 'components/FormElements/FormRow';
 import FormInput from 'components/FormElements/Input/FormInput';
+import Textarea from 'components/FormElements/Input/TextArea';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
 import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
@@ -10,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import queryClient from 'services/queryClient';
 import { useRoleCreateMutation } from 'services/roles.service';
+import cls from './Detail.module.scss';
 
 export default function RolesCards() {
 	const navigate = useNavigate();
@@ -44,10 +46,10 @@ export default function RolesCards() {
 			<Box borderRadius={'6px'} display={'flex'} flexDirection={'column'} justifyContent={'center'} p={4}>
 				<Page>
 					{/* h='calc(100vh - 56px)' */}
-					<PageCard w={600} h="calc(90vh - 56px)">
+					<PageCard w={600}>
 						<PageCardHeader>
 							<HeaderLeftSide>
-								<Heading fontSize="xl">Данные пользователя</Heading>
+								<Heading fontSize="xl">Информация о роле</Heading>
 							</HeaderLeftSide>
 						</PageCardHeader>
 
@@ -68,13 +70,14 @@ export default function RolesCards() {
 								/>
 							</FormRow>
 							<FormRow label="Описание:" required>
-								<FormInput
+								<Textarea
 									validation={{
 										required: {
 											value: true,
 											message: 'Обязательное поле',
 										},
 									}}
+									className={cls.textarea}
 									control={control}
 									name="description"
 									placeholder="Введите oписание"

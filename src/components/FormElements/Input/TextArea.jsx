@@ -29,7 +29,7 @@ const Textarea = ({
 								className={className}
 								{...restProps}
 								rows={5}
-								cols={74}
+								cols={73}
 							/>
 						</div>
 					);

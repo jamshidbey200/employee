@@ -16,7 +16,15 @@ const FormPhoneInput = ({ control, required, name, inputProps = {}, inputLeftEle
 
 						<ReactInputMask mask="(99) 999-99-99" value={value} onChange={onChange}>
 							{(maskProps) => (
-								<Input value={value} onChange={onChange} isInvalid={error} {...maskProps} {...inputProps} />
+								<Input
+									h="40px"
+									placeholder="(99) 999-99-99"
+									value={value}
+									onChange={onChange}
+									isInvalid={error}
+									{...maskProps}
+									{...inputProps}
+								/>
 							)}
 						</ReactInputMask>
 					</InputGroup>

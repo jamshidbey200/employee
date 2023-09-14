@@ -57,19 +57,16 @@ const RoleDetail = () => {
 			<Header>
 				<HeaderLeftSide ml={-10}>
 					<BackButton />
-					<HeaderTitle>Пользователи</HeaderTitle>
+					<HeaderTitle>Роли</HeaderTitle>
 				</HeaderLeftSide>
-				<HeaderExtraSide>
-					<NotificationMenu />
-					<ProfileMenu />
-				</HeaderExtraSide>
+				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 
-			<Page p={4} h="calc(100vh - 56px)">
+			<Page p={4} h="calc(90vh - 56px)">
 				<PageCard w={600}>
 					<PageCardHeader>
 						<HeaderLeftSide>
-							<Heading fontSize="xl">Данные пользователя</Heading>
+							<Heading fontSize="xl">Все данные</Heading>
 						</HeaderLeftSide>
 					</PageCardHeader>
 

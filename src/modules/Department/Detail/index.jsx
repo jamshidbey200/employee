@@ -60,13 +60,10 @@ const DepartmentDetail = () => {
 					<BackButton />
 					<HeaderTitle>Отделение</HeaderTitle>
 				</HeaderLeftSide>
-				<HeaderExtraSide>
-					<NotificationMenu />
-					<ProfileMenu />
-				</HeaderExtraSide>
+				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 
-			<Page p={4} h="calc(100vh - 56px)">
+			<Page p={4} h="calc(90vh - 56px)">
 				<PageCard w={600}>
 					<PageCardHeader>
 						<HeaderLeftSide>

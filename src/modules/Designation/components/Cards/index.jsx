@@ -2,6 +2,7 @@ import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
 import FormRow from 'components/FormElements/FormRow';
 import FormInput from 'components/FormElements/Input/FormInput';
+import Textarea from 'components/FormElements/Input/TextArea';
 import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
@@ -9,13 +10,25 @@ import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'componen
 import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useGetAllDepartmentList } from 'services/department.service';
 import { useDesignationCreateMutation } from 'services/designation.service';
 import queryClient from 'services/queryClient';
+import cls from './Detail.module.scss';
 
 export default function DesignationsCards() {
 	const navigate = useNavigate();
 	const { control, handleSubmit } = useForm({});
 	const { successToast } = useCustomToast();
+
+	const { data } = useGetAllDepartmentList({
+		params: {
+			limit: 10,
+			offset: 0,
+		},
+		tableSlug: '/departments',
+	});
+
+	console.log('datas', data);
 
 	const { mutate: createDesignation } = useDesignationCreateMutation({
 		onSuccess: () => {
@@ -29,7 +42,7 @@ export default function DesignationsCards() {
 		const createData = {
 			name: values.name,
 			description: values.description,
-			department_id: 'b3bd7bf7-467a-11ee-8f0d-02420a000031',
+			department_id: values.department_id,
 		};
 
 		createDesignation(createData);
@@ -40,29 +53,52 @@ export default function DesignationsCards() {
 			<Header>
 				<HeaderLeftSide ml={'-40px'}>
 					<BackButton />
-					<HeaderTitle>Добавить</HeaderTitle>
+					<HeaderTitle>Добавить обозначение</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 			<Box borderRadius={'6px'} display={'flex'} flexDirection={'column'} justifyContent={'center'} p={4}>
 				<Page>
 					{/* h='calc(100vh - 56px)' */}
-					<PageCard w={600} h="calc(90vh - 56px)">
+					<PageCard w={600}>
 						<PageCardHeader>
 							<HeaderLeftSide>
-								<Heading fontSize="xl">Данные пользователя</Heading>
+								<Heading fontSize="xl">Данные об обозначение</Heading>
 							</HeaderLeftSide>
 						</PageCardHeader>
 
 						<PageCardForm p={6} spacing={8} h="100%">
 							<FormRow label="Имя:" required>
-								<FormInput control={control} name="name" placeholder="Введите имя пользователя" autoFocus required />
+								<FormInput
+									control={control}
+									name="name"
+									placeholder="Введите имя пользователя"
+									autoFocus
+									validation={{
+										required: {
+											value: true,
+											message: 'Обязательное поле',
+										},
+									}}
+								/>
+							</FormRow>
+							<FormRow label="Отделение" required>
+								<FormSelect
+									options={data?.departments?.map((el) => ({ label: el?.name, value: el?.id }))}
+									control={control}
+									name="department_id"
+									placeholder="Введите отделение"
+									required
+								/>
 							</FormRow>
 							<FormRow label="Описание:" required>
-								<FormInput control={control} name="description" placeholder="Введите oписание" required />
-							</FormRow>
-							<FormRow label="Отделение">
-								<FormSelect control={control} name="department_id" placeholder="Введите отделение" />
+								<Textarea
+									className={cls.textarea}
+									control={control}
+									name="description"
+									placeholder="Введите oписание"
+									required
+								/>
 							</FormRow>
 						</PageCardForm>
 
