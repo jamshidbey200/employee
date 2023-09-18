@@ -8,15 +8,14 @@ import authStore from '../../store/auth.store';
 const Login = () => {
 	const form = useForm();
 
-	const { mutate: login, isLoading } = useLoginMutation({
+	const { mutate: authLogin, isLoading } = useLoginMutation({
 		onSuccess: (res) => {
 			authStore.login(res);
 		},
 	});
 
 	const onSubmit = (values) => {
-		login({ data: values });
-		authStore.login();
+		authLogin(values);
 	};
 
 	return (
@@ -27,7 +26,7 @@ const Login = () => {
 
 			<Stack py={10} h="calc(100vh - 200px)" spacing={5} justifyContent="center">
 				<FormRow label="Login">
-					<FormInput name="login" control={form.control} size="lg" />
+					<FormInput name="email" control={form.control} size="lg" />
 				</FormRow>
 				<FormRow label="Password">
 					<FormInput name="password" control={form.control} size="lg" />
