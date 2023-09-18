@@ -141,12 +141,6 @@ const UserDetail = () => {
 						<FormRow label="Пол">
 							<FormInput control={control} name="gender" placeholder="Введите пол" />
 						</FormRow>
-						<FormRow label="Логин">
-							<FormInput control={control} name="login" placeholder="Введите логин" />
-						</FormRow>
-						<FormRow label="Пароль">
-							<FormInput control={control} name="password" placeholder="Введите пароль" />
-						</FormRow>
 						<FormRow label="marital_status">
 							<FormInput control={control} name="marital_status" placeholder="Введите marital_status" />
 						</FormRow>

@@ -9,9 +9,9 @@ const httpRequestAuth = axios.create({
 });
 
 const errorHandler = (error, hooks) => {
-	// if(error?.response?.status === 401) {
-	//   authStore.logout()
-	// }
+	if (error?.response?.status === 401) {
+		authStore.logout();
+	}
 
 	if (error?.response) {
 		if (error.response?.data?.data) {

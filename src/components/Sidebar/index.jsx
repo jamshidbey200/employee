@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillLeftCircle } from 'react-icons/ai';
 import { useState } from 'react';
+import authStore from 'store/auth.store';
 
 const Sidebar = ({ elements }) => {
 	const navigate = useNavigate();
@@ -43,6 +44,22 @@ const Sidebar = ({ elements }) => {
 						</Box>
 					</Box>
 				))}
+			</Box>
+
+			<Box
+				sx={{
+					mt: '-42px',
+					border: '1px solid #f4f6fa',
+					textAlign: 'center',
+					p: '8px 12px',
+					cursor: 'pointer',
+					fontWeight: 500,
+					color: '#9aa6ac',
+					fontSize: '16px',
+				}}
+				onClick={() => authStore.logout()}
+			>
+        Log Out
 			</Box>
 		</Box>
 	);

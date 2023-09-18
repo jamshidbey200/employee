@@ -32,9 +32,11 @@ const elements = [
 const MainLayout = () => {
 	return (
 		<Flex>
-			<Sidebar elements={elements} />
+			<Box position="sticky" top={0} height="100vh" overflowY="auto">
+				<Sidebar elements={elements} />
+			</Box>
 
-			<Box flex={1} background="#f0f0f3">
+			<Box background="#f0f0f3" flex={1} height="100vh" overflowY="auto">
 				<Outlet />
 			</Box>
 		</Flex>

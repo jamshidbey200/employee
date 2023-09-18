@@ -19,17 +19,17 @@ import UserDetail from 'modules/Users/Detail';
 const Router = () => {
 	const { isAuth } = authStore;
 
-	// if (!isAuth)
-	// 	return (
-	// 		<Routes>
-	// 			<Route path="/" element={<AuthLayout />}>
-	// 				<Route index element={<Navigate to="/login " />} />
-	// 				<Route path="login" element={<Login />} />
-	// 				<Route path="*" element={<Navigate to="/login" />} />
-	// 			</Route>
-	// 			<Route path="*" element={<Navigate to="/login" />} />
-	// 		</Routes>
-	// 	);
+	if (!isAuth)
+		return (
+			<Routes>
+				<Route path="/" element={<AuthLayout />}>
+					<Route index element={<Navigate to="/login " />} />
+					<Route path="login" element={<Login />} />
+					<Route path="*" element={<Navigate to="/login" />} />
+				</Route>
+				<Route path="*" element={<Navigate to="/login" />} />
+			</Routes>
+		);
 
 	return (
 		<Routes>
