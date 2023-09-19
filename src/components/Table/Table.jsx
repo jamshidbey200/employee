@@ -66,6 +66,14 @@ export default function UTable() {
 					<Th className={cls.table__header}>Телефон</Th>
 				</>
 			);
+		case '/roadmaps':
+			return (
+				<>
+					<Th className={cls.table__header}>Заголовок</Th>
+					<Th className={cls.table__header}>Описание</Th>
+					<Th className={cls.table__header}>short_link</Th>
+				</>
+			);
 		default:
 			return (
 				<>
@@ -75,7 +83,6 @@ export default function UTable() {
 			);
 		}
 	};
-
 	const slug = pathname.slice(0, -1);
 
 	return (
@@ -98,22 +105,31 @@ export default function UTable() {
 								</Th>
 							</Tr>
 						</Thead>
-						<Tbody className={cls.tBody} style={{ border: '1px solid blue' }}>
+						<Tbody className={cls.tBody} style={{ border: '' }}>
 							{curItems?.map((el, index) => {
 								const mypath = `${pathname}/${el?.id}`;
+								console.log('path', curItems);
 								const mypathRemove = `${slug}/${el?.id}`;
 								return (
 									<Tr key={index} className={cls.body__table}>
 										<Td>{curPage * 10 - 10 + index + 1}</Td>
-										<Td onClick={() => navigate(mypath)}>{el?.name || el?.first_name}</Td>
+										<Td
+											onClick={() => {
+												console.log('mypath', mypath);
+												navigate(mypath);
+											}}
+										>
+											{el?.name || el?.first_name || el?.title}
+										</Td>
 										<Td className={cls.desc} onClick={() => navigate(mypath)}>
 											{el?.description || el?.last_name}
 										</Td>
-										{el?.phone_number && (
-											<Td className={cls.desc} onClick={() => navigate(mypath)}>
-												{el?.phone_number}
-											</Td>
-										)}
+										{el?.phone_number ||
+                      (el?.short_link && (
+                      	<Td className={cls.desc} onClick={() => navigate(mypath)}>
+                      		{el?.phone_number || el?.short_link}
+                      	</Td>
+                      ))}
 										<Td className={cls.actions}>
 											<Popover>
 												{({ isOpen, onClose }) => (

@@ -11,11 +11,11 @@ import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllDepartmentList } from 'services/department.service';
-import { useDesignationCreateMutation } from 'services/designation.service';
 import queryClient from 'services/queryClient';
 import cls from './Detail.module.scss';
+import { useRoadmapCreateMutation } from 'services/roadmap.service';
 
-export default function DesignationsCards() {
+export default function RoadmapCards() {
 	const navigate = useNavigate();
 	const { control, handleSubmit } = useForm({});
 	const { successToast } = useCustomToast();
@@ -28,7 +28,7 @@ export default function DesignationsCards() {
 		tableSlug: '/departments',
 	});
 
-	const { mutate: createDesignation } = useDesignationCreateMutation({
+	const { mutate: createRoadmap } = useRoadmapCreateMutation({
 		onSuccess: () => {
 			queryClient.refetchQueries('DEPARTMENT');
 			successToast();
@@ -38,12 +38,14 @@ export default function DesignationsCards() {
 
 	const onSubmit = (values) => {
 		const createData = {
-			name: values.name,
+			title: values.title,
 			description: values.description,
 			department_id: values.department_id,
+			actions: values.actions,
+			short_link: values.short_link,
 		};
 
-		createDesignation(createData);
+		createRoadmap(createData);
 	};
 
 	return (
@@ -51,60 +53,25 @@ export default function DesignationsCards() {
 			<Header>
 				<HeaderLeftSide ml={'-40px'}>
 					<BackButton />
-					<HeaderTitle>Добавить обозначение</HeaderTitle>
+					<HeaderTitle>Добавить roadmap</HeaderTitle>
 				</HeaderLeftSide>
 				<HeaderExtraSide></HeaderExtraSide>
 			</Header>
 			<Box borderRadius={'6px'} display={'flex'} flexDirection={'column'} justifyContent={'center'} p={4}>
 				<Page>
 					{/* h='calc(100vh - 56px)' */}
-					<PageCard w={600}>
+					<PageCard w="100%">
 						<PageCardHeader>
 							<HeaderLeftSide>
-								<Heading fontSize="xl">Данные об обозначение</Heading>
+								<Heading fontSize="xl">Данные o roadmap</Heading>
 							</HeaderLeftSide>
+							<HeaderExtraSide>
+								{' '}
+								<Button type="submit" ml="auto">
+                  Сохранить
+								</Button>{' '}
+							</HeaderExtraSide>
 						</PageCardHeader>
-
-						<PageCardForm p={6} spacing={8} h="100%">
-							<FormRow label="Имя:" required>
-								<FormInput
-									control={control}
-									name="name"
-									placeholder="Введите имя пользователя"
-									autoFocus
-									validation={{
-										required: {
-											value: true,
-											message: 'Обязательное поле',
-										},
-									}}
-								/>
-							</FormRow>
-							<FormRow label="Отделение" required>
-								<FormSelect
-									options={data?.departments?.map((el) => ({ label: el?.name, value: el?.id }))}
-									control={control}
-									name="department_id"
-									placeholder="Введите отделение"
-									required
-								/>
-							</FormRow>
-							<FormRow label="Описание:" required>
-								<Textarea
-									className={cls.textarea}
-									control={control}
-									name="description"
-									placeholder="Введите oписание"
-									required
-								/>
-							</FormRow>
-						</PageCardForm>
-
-						<PageCardFooter mt={6}>
-							<Button type="submit" ml="auto">
-                Сохранить
-							</Button>
-						</PageCardFooter>
 					</PageCard>
 				</Page>
 			</Box>

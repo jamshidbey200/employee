@@ -27,6 +27,11 @@ const elements = [
 		icon: MdDesignServices,
 		link: '/designations',
 	},
+	{
+		label: 'Roadmaps',
+		icon: MdDesignServices,
+		link: '/roadmaps',
+	},
 ];
 
 const MainLayout = () => {

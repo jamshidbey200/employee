@@ -16,6 +16,9 @@ import DepartmentDetail from 'modules/Department/Detail';
 import RoleDetail from 'modules/Roles/Detail';
 import DesignationDetail from 'modules/Designation/Detail';
 import UserDetail from 'modules/Users/Detail';
+import Roadmaps from 'modules/Roadmap/List';
+import RoadmapCards from 'modules/Roadmap/components/Cards';
+import RoadmapDetail from 'modules/Roadmap/Detail';
 const Router = () => {
 	const { isAuth } = authStore;
 
@@ -35,6 +38,7 @@ const Router = () => {
 		<Routes>
 			<Route path="/" element={<MainLayout />}>
 				<Route index element={<Navigate to="/departments" />} />
+				{/* ================================================================= */}
 				<Route path="/departments" element={<Department />} />
 				<Route path="departments/create" element={<Cards />} />
 				<Route path="departments/:id" element={<DepartmentDetail />} />
@@ -47,6 +51,11 @@ const Router = () => {
 				<Route path="designations" element={<Designation />} />
 				<Route path="designations/create" element={<DesignationsCards />} />
 				<Route path="designations/:id" element={<DesignationDetail />} />
+				<Route path="roadmaps" element={<Roadmaps />} />
+				<Route path="roadmap/create" element={<RoadmapCards />} />
+				<Route path="roadmaps/:id" element={<RoadmapDetail />} />
+
+				{/* ================================================================= */}
 				<Route path="*" element={<Navigate to="/departments" />} />
 			</Route>
 
