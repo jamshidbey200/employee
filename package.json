@@ -44,7 +44,7 @@
     "react-router-prompt": "^0.3.0",
     "react-select": "^5.6.1",
     "react-smooth-dnd": "^0.11.1",
-    "reactflow": "^11.2.0",
+    "reactflow": "^11.8.3",
     "rollup-plugin-visualizer": "^5.8.3",
     "vite-plugin-progress": "^0.0.6"
   },

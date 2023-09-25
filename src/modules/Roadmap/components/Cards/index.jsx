@@ -1,23 +1,20 @@
 import { Box, Button, Heading } from '@chakra-ui/react';
 import BackButton from 'components/BackButton';
-import FormRow from 'components/FormElements/FormRow';
-import FormInput from 'components/FormElements/Input/FormInput';
-import Textarea from 'components/FormElements/Input/TextArea';
-import FormSelect from 'components/FormElements/Select/FormSelect';
 import Header, { HeaderExtraSide, HeaderLeftSide, HeaderTitle } from 'components/Header';
 import { Page } from 'components/Page';
-import PageCard, { PageCardFooter, PageCardForm, PageCardHeader } from 'components/PageCard';
+import PageCard, { PageCardHeader } from 'components/PageCard';
 import useCustomToast from 'hooks/useCustomToast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllDepartmentList } from 'services/department.service';
 import queryClient from 'services/queryClient';
-import cls from './Detail.module.scss';
+import cls from './index.module.scss';
 import { useRoadmapCreateMutation } from 'services/roadmap.service';
+import Flow from 'modules/Roadmap/ReactFlow/Flow';
 
 export default function RoadmapCards() {
 	const navigate = useNavigate();
-	const { control, handleSubmit } = useForm({});
+	const { handleSubmit } = useForm({});
 	const { successToast } = useCustomToast();
 
 	const { data } = useGetAllDepartmentList({
@@ -55,23 +52,25 @@ export default function RoadmapCards() {
 					<BackButton />
 					<HeaderTitle>Добавить roadmap</HeaderTitle>
 				</HeaderLeftSide>
-				<HeaderExtraSide></HeaderExtraSide>
+				<HeaderExtraSide>
+					<Button type="submit" ml="auto">
+            Сохранить
+					</Button>
+				</HeaderExtraSide>
 			</Header>
 			<Box borderRadius={'6px'} display={'flex'} flexDirection={'column'} justifyContent={'center'} p={4}>
 				<Page>
-					{/* h='calc(100vh - 56px)' */}
 					<PageCard w="100%">
 						<PageCardHeader>
 							<HeaderLeftSide>
 								<Heading fontSize="xl">Данные o roadmap</Heading>
 							</HeaderLeftSide>
-							<HeaderExtraSide>
-								{' '}
-								<Button type="submit" ml="auto">
-                  Сохранить
-								</Button>{' '}
-							</HeaderExtraSide>
 						</PageCardHeader>
+						<Page>
+							<PageCard>
+								<Flow />
+							</PageCard>
+						</Page>
 					</PageCard>
 				</Page>
 			</Box>

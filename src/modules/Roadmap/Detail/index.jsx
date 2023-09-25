@@ -16,6 +16,7 @@ import cls from './Detail.module.scss';
 import FormSelect from 'components/FormElements/Select/FormSelect';
 import { useGetAllDepartmentList } from 'services/department.service';
 import { useGetRoadmapByIdQuery, useRoadmapUpdateMutation } from 'services/roadmap.service';
+import ReactFlow from 'reactflow';
 
 const RoadmapDetail = () => {
 	const navigate = useNavigate();
