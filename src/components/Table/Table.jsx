@@ -108,14 +108,12 @@ export default function UTable() {
 						<Tbody className={cls.tBody} style={{ border: '' }}>
 							{curItems?.map((el, index) => {
 								const mypath = `${pathname}/${el?.id}`;
-								console.log('path', curItems);
 								const mypathRemove = `${slug}/${el?.id}`;
 								return (
 									<Tr key={index} className={cls.body__table}>
 										<Td>{curPage * 10 - 10 + index + 1}</Td>
 										<Td
 											onClick={() => {
-												console.log('mypath', mypath);
 												navigate(mypath);
 											}}
 										>

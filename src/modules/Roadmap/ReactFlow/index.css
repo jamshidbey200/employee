@@ -92,3 +92,60 @@
     width: 100%;
   }
 }
+
+.dotsWrap {
+  border-radius: 3px;
+  /* border: 2px solid #949090; */
+  padding: 10px 6px;
+  background-color: #eee;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+}
+.dot {
+  width: 100px;
+  border: 1px solid #9f9999;
+  outline: none;
+  background-color: #d7dbe0;
+  border-radius: 3px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.title {
+  text-align: center;
+  background-color: #eee;
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.updatenode__controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 4;
+  font-size: 12px;
+}
+
+.updatenode__controls label {
+  display: block;
+  background-color: #eee;
+}
+
+.updatenode__bglabel {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.updatenode__checkboxwrapper {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}

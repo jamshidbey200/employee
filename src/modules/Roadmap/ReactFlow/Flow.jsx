@@ -1,39 +1,44 @@
 import React, { useState, useRef, useCallback } from 'react';
-import ReactFlow, {
-	ReactFlowProvider,
-	addEdge,
-	useNodesState,
-	useEdgesState,
-	Background,
-	Position,
-	Handle,
-} from 'reactflow';
+import ReactFlow, { ReactFlowProvider, addEdge, useNodesState, useEdgesState, Background } from 'reactflow';
 import 'reactflow/dist/style.css';
 import Sidebar from './Sidebar';
 import './index.css';
 
+const fn = ({ params }) => {
+	const source = params.source.split('_')?.[0];
+	const target = params.target.split('_')?.[0];
+	const lineType = source == target;
+	return {
+		...params,
+		animated: !lineType,
+		style: { stroke: '#2b77e4', strokeWidth: 2 },
+		type: lineType ? 'step' : 'BezierEdge',
+	};
+};
+
 const initialNodes = [
 	{
-		id: '3',
+		id: 'default',
 		type: 'default',
 		data: { label: <input className="input-flow" placeholder="main placeholder" /> },
 		position: { x: 250, y: 5 },
 		style: { padding: 0, width: 'max-content', background: '#ffff00' },
-		sourcePosition: 'left',
-		targetPosition: 'right',
+		sourcePosition: 'right',
+		targetPosition: 'left',
 	},
 ];
 
 let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = ({ type }) => `${type}_${id++}`;
 
 const Flow = () => {
 	const reactFlowWrapper = useRef(null);
 	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 	const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 	const [reactFlowInstance, setReactFlowInstance] = useState(null);
+	const [positionDots, setPositionDots] = useState([]);
 
-	const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
+	const onConnect = useCallback((params) => setEdges((eds) => addEdge(fn({ params }), eds)), []);
 
 	const onDragOver = useCallback((event) => {
 		event.preventDefault();
@@ -41,15 +46,14 @@ const Flow = () => {
 	}, []);
 
 	const onDrop = useCallback(
-		(event) => {
+		(event, positionDots) => {
 			event.preventDefault();
 
 			const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
 			const type = event.dataTransfer.getData('application/reactflow');
 			const colorTypes = {
 				default: '#ffff00',
-				input: '#ffe599',
-				output: 'blue',
+				output: '#ffe599',
 			};
 			// check if the dropped element is valid
 			if (typeof type === 'undefined' || !type) {
@@ -65,14 +69,13 @@ const Flow = () => {
 			const backgroundColor = colorTypes[type];
 
 			const newNode = {
-				id: getId(),
+				id: getId({ type }),
 				type,
 				position,
 				data: { label: <input type={type} className="input-flow" placeholder="Type something" /> },
 				style: { padding: 0, width: 'max-content', backgroundColor },
-				sourcePosition: 'top',
-				targetPosition: 'bottom',
-				animated: true,
+				sourcePosition: 'right',
+				targetPosition: 'left',
 			};
 
 			setNodes((nds) => nds.concat(newNode));
@@ -91,7 +94,7 @@ const Flow = () => {
 						onEdgesChange={onEdgesChange}
 						onConnect={onConnect}
 						onInit={setReactFlowInstance}
-						onDrop={onDrop}
+						onDrop={(e) => onDrop(e, positionDots)}
 						onDragOver={onDragOver}
 						fitView
 					>
@@ -99,7 +102,7 @@ const Flow = () => {
 					</ReactFlow>
 				</div>
 				<div className="sidebar">
-					<Sidebar />
+					<Sidebar setPositionDots={setPositionDots} positionDots={positionDots} />
 				</div>
 			</ReactFlowProvider>
 		</div>
