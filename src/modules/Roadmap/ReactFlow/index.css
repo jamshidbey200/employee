@@ -33,10 +33,6 @@
   height: 100vh;
 }
 
-.dndflow aside .description {
-  margin-bottom: 10px;
-}
-
 .dndflow .dndnode {
   height: 20px;
   padding: 4px;
@@ -76,23 +72,6 @@
   height: 100%;
 }
 
-.dndflow .selectall {
-  margin-top: 10px;
-}
-
-@media screen and (min-width: 768px) {
-  .dndflow {
-    /* flex-direction: row; */
-  }
-
-  .dndflow aside {
-    /* width: 20%;
-    max-width: 250px; */
-    /* height: 100vh; */
-    width: 100%;
-  }
-}
-
 .dotsWrap {
   border-radius: 3px;
   /* border: 2px solid #949090; */
@@ -103,7 +82,6 @@
 .dots {
   display: flex;
   gap: 5px;
-  flex-direction: column;
   align-items: center;
 }
 .dot {
@@ -118,11 +96,34 @@
 }
 
 .title {
-  text-align: center;
+  display: block;
   background-color: #eee;
   font-size: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-weight: 500;
+  /* padding: 1px 8px; */
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.textarea {
+  outline: none;
+  padding: 5px 8px;
+  width: 230px;
+  font-size: 15px;
+  border-radius: 6px;
+}
+
+.updatenode__controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 4;
+  font-size: 12px;
+  background-color: #eee;
+  width: 250px;
+  padding: 15px 12px;
+  border-radius: 6px;
 }
 
 .updatenode__controls {
@@ -133,19 +134,17 @@
   font-size: 12px;
 }
 
-.updatenode__controls label {
-  display: block;
-  background-color: #eee;
-}
-
-.updatenode__bglabel {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.updatenode__checkboxwrapper {
-  margin-top: 10px;
+.position {
   display: flex;
-  align-items: center;
+  gap: 10px;
+}
+
+.item {
+  border: 1px solid #9f9999;
+  border-radius: 3px;
+  padding: 1px 8px;
+  cursor: pointer;
+}
+.item:active {
+transform: translateY(1px);
 }

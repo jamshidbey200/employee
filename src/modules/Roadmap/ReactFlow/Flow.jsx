@@ -3,8 +3,9 @@ import ReactFlow, { ReactFlowProvider, addEdge, useNodesState, useEdgesState, Ba
 import 'reactflow/dist/style.css';
 import Sidebar from './Sidebar';
 import './index.css';
+import UpdateBar from './UpdateBar';
 
-const fn = ({ params }) => {
+const cloneInputType = ({ params }) => {
 	const source = params.source.split('_')?.[0];
 	const target = params.target.split('_')?.[0];
 	const lineType = source == target;
@@ -38,7 +39,7 @@ const Flow = () => {
 	const [reactFlowInstance, setReactFlowInstance] = useState(null);
 	const [positionDots, setPositionDots] = useState([]);
 
-	const onConnect = useCallback((params) => setEdges((eds) => addEdge(fn({ params }), eds)), []);
+	const onConnect = useCallback((params) => setEdges((eds) => addEdge(cloneInputType({ params }), eds)), []);
 
 	const onDragOver = useCallback((event) => {
 		event.preventDefault();
@@ -83,6 +84,10 @@ const Flow = () => {
 		[reactFlowInstance],
 	);
 
+	const onSelectionChange = (elem) => {
+		// console.log('Selected Elements:', elements);
+	};
+
 	return (
 		<div className="dndflow">
 			<ReactFlowProvider>
@@ -96,9 +101,11 @@ const Flow = () => {
 						onInit={setReactFlowInstance}
 						onDrop={(e) => onDrop(e, positionDots)}
 						onDragOver={onDragOver}
+						k={onSelectionChange}
 						fitView
 					>
 						<Background variant="dots" gap={12} size={1} />
+						<UpdateBar />
 					</ReactFlow>
 				</div>
 				<div className="sidebar">
