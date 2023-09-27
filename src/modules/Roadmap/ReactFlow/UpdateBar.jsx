@@ -4,7 +4,7 @@ function UpdateBar({ nodeName, setNodeName }) {
 	return (
 		<div className="updatenode__controls">
 			<label className="title">Title:</label>
-			<textarea className="textarea" value={nodeName} onChange={(evt) => setNodeName(evt.target.value)} />
+			<input className="textarea" value={nodeName} onChange={(evt) => setNodeName(evt.target.value)} />
 
 			<div className="updatenode__checkboxwrapper">
 				<p className="title">Positions:</p>
