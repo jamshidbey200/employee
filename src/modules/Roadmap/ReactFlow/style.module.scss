@@ -1,0 +1,131 @@
+.dndflow {
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .sidebar {
+    width: 20%;
+    position: absolute;
+    height: 100vh;
+  }
+  
+  .inputFlow {
+    border: 2px solid #eee;
+    outline: none;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    color: 'red' !important;
+    background-color: transparent;
+    border: none;
+    width: 135px !important;
+    max-width: 100%;
+  }
+  
+  .dndflow aside {
+    border-right: 1px solid #eee;
+    padding: 15px 10px;
+    font-size: 12px;
+    background: #fcfcfc;
+    height: 100vh;
+  }
+  
+  .second {
+    height: 20px;
+    padding: 4px;
+    border: 1px solid #1a192b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    padding: 20px;  
+    background-color: rgb(255, 229, 153);
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 17px;
+    border: 2px solid;
+  }
+  
+  .main {
+    height: 20px;
+    padding: 4px;
+    border: 2px solid #1a192b;
+    margin-bottom: 10px;
+    padding: 20px;  
+    background-color: rgb(255, 255, 0);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+  }  
+  
+  .title {
+    font-size: 40px;
+    font-weight: 800;
+  }
+  
+  .textarea {
+    outline: none;
+    padding: 5px 8px;
+    width: 270px;
+    font-size: 15px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    border: 1px solid #d0cece;
+  }
+  
+  .description {
+    font-size: 15px;
+    line-height: 25px;
+    word-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  
+  .text-link {
+    margin-bottom: 15px;
+  }
+  
+  .links {
+    list-style: none;
+    border-bottom: 1px solid #c1bfbf;
+    padding-bottom: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .link {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 30px;
+    text-decoration: underline;
+    cursor: pointer;
+    width: max-content;
+  }
+  
+  .link::before {
+    content: "\2022"; 
+    color: #7d7c7c; 
+    font-weight: bold; 
+    display: inline-block; 
+    width: 20px;
+    margin-left: -1em;
+  }
+  
+  .updatePosition {
+    margin-bottom: 15px;
+  }
+  
+  .switchText {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  
+  .submitBtnText {
+    color: #8e8b8b;
+    margin-bottom: 5px;
+  }

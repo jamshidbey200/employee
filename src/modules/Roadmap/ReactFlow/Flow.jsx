@@ -3,7 +3,9 @@ import ReactFlow, { ReactFlowProvider, addEdge, useNodesState, useEdgesState, Ba
 import 'reactflow/dist/style.css';
 import Sidebar from './Sidebar';
 import './index.css';
-import UpdateBar from './UpdateBar';
+import ModalSidebar from './Modal';
+import { useDisclosure } from '@chakra-ui/react';
+import cls from './style.module.scss';
 
 const cloneInputType = ({ params }) => {
 	const source = params.source.split('_')?.[0];
@@ -20,12 +22,11 @@ const cloneInputType = ({ params }) => {
 const initialNodes = [
 	{
 		id: 'default',
-		type: 'default',
-		data: { label: <input className="input-flow" placeholder="main placeholder" /> },
+		type: 'input',
+		data: { label: <input className={cls.inputFlow} placeholder="main placeholder" /> },
 		position: { x: 250, y: 5 },
 		style: { padding: 0, width: 'max-content', background: '#ffff00' },
 		sourcePosition: 'right',
-		targetPosition: 'left',
 	},
 ];
 
@@ -37,7 +38,11 @@ const Flow = () => {
 	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 	const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 	const [reactFlowInstance, setReactFlowInstance] = useState(null);
-	const [positionDots, setPositionDots] = useState([]);
+	const [menu, setMenu] = useState(null);
+	const [currentItem, setCurrentItem] = useState();
+	const [changePosition, setChangePosition] = useState();
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const onConnect = useCallback((params) => setEdges((eds) => addEdge(cloneInputType({ params }), eds)), []);
 
@@ -46,8 +51,23 @@ const Flow = () => {
 		event.dataTransfer.dropEffect = 'move';
 	}, []);
 
+	function changePos(passedItem) {
+		const selectedItemIdx = nodes.findIndex((item) => {
+			return item.id === passedItem.id;
+		});
+
+		const copyNodes = [...nodes];
+
+		if (copyNodes?.[selectedItemIdx]) {
+			copyNodes[selectedItemIdx].sourcePosition = 'bottom';
+			copyNodes[selectedItemIdx].targetPosition = 'top';
+		}
+
+		setNodes(copyNodes);
+	}
+
 	const onDrop = useCallback(
-		(event, positionDots) => {
+		(event) => {
 			event.preventDefault();
 
 			const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
@@ -73,7 +93,7 @@ const Flow = () => {
 				id: getId({ type }),
 				type,
 				position,
-				data: { label: <input type={type} className="input-flow" placeholder="Type something" /> },
+				data: { label: <input type={type} className={cls.inputFlow} placeholder="Type something" /> },
 				style: { padding: 0, width: 'max-content', backgroundColor },
 				sourcePosition: 'right',
 				targetPosition: 'left',
@@ -84,14 +104,22 @@ const Flow = () => {
 		[reactFlowInstance],
 	);
 
-	const onSelectionChange = (elem) => {
-		// console.log('Selected Elements:', elements);
+	const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+
+	const getCurrentItem = (event, element) => {
+		setCurrentItem(element);
+	};
+
+	const deletedItem = (id) => {
+		console.log('id', id);
+		const deletedElement = nodes?.filter((el) => el.id !== id);
+		setNodes(deletedElement);
 	};
 
 	return (
-		<div className="dndflow">
+		<div className={cls.dndflow}>
 			<ReactFlowProvider>
-				<div className="reactflow-wrapper" ref={reactFlowWrapper}>
+				<div className={cls.dndflow} ref={reactFlowWrapper}>
 					<ReactFlow
 						nodes={nodes}
 						edges={edges}
@@ -99,17 +127,27 @@ const Flow = () => {
 						onEdgesChange={onEdgesChange}
 						onConnect={onConnect}
 						onInit={setReactFlowInstance}
-						onDrop={(e) => onDrop(e, positionDots)}
+						onDrop={(e) => onDrop(e)}
 						onDragOver={onDragOver}
-						k={onSelectionChange}
+						onPaneClick={onPaneClick}
 						fitView
+						onNodeDoubleClick={onOpen}
+						onNodeClick={getCurrentItem}
+						onNodesDelete={deletedItem}
 					>
 						<Background variant="dots" gap={12} size={1} />
-						<UpdateBar />
 					</ReactFlow>
+					<ModalSidebar
+						currentItem={currentItem}
+						changePosition={changePosition}
+						setChangePosition={changePos}
+						isOpen={isOpen}
+						onOpen={onOpen}
+						onClose={onClose}
+					/>
 				</div>
-				<div className="sidebar">
-					<Sidebar setPositionDots={setPositionDots} positionDots={positionDots} />
+				<div className={cls.sidebar}>
+					<Sidebar />
 				</div>
 			</ReactFlowProvider>
 		</div>

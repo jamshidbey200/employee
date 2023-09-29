@@ -45,7 +45,7 @@
   cursor: grab;
 }
 
-.dndflow .dndnode.input {
+.dndnode.input {
   padding: 20px;  
   background-color: rgb(255, 229, 153);
   border-radius: 5px;
@@ -54,11 +54,11 @@
   border: 2px solid;
 }
 
-.dndflow .dndnode.output {
+.dndnode.output {
   border-color: #ff0072;
 }
 
-.dndflow .dndnode.main {
+.dndnode.main {
   padding: 20px;  
   background-color: rgb(255, 255, 0);
   border-radius: 5px;
@@ -74,36 +74,13 @@
 
 .dotsWrap {
   border-radius: 3px;
-  /* border: 2px solid #949090; */
   padding: 10px 6px;
   background-color: #eee;
 }
 
-.dots {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-.dot {
-  width: 100px;
-  border: 1px solid #9f9999;
-  outline: none;
-  background-color: #d7dbe0;
-  border-radius: 3px;
-  text-align: center;
-  cursor: pointer;
-  font-weight: 500;
-}
-
 .title {
-  display: block;
-  background-color: #eee;
-  font-size: 15px;
-  margin-bottom: 10px;
-  font-weight: 500;
-  /* padding: 1px 8px; */
-  border-radius: 3px;
-  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 800;
 }
 
 .textarea {
@@ -111,41 +88,57 @@
   padding: 5px 8px;
   width: 270px;
   font-size: 15px;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-bottom: 5px;
+  border: 1px solid #d0cece;
 }
 
-.updatenode__controls {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 4;
-  font-size: 12px;
-  background-color: #eee;
-  width: 300px;
-  padding: 15px 12px;
-  border-radius: 6px;
+.description {
+  font-size: 15px;
+  line-height: 25px;
+  word-spacing: 3px;
+  margin-bottom: 10px;
 }
 
-.updatenode__controls {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 4;
-  font-size: 12px;
+.text-link {
+  margin-bottom: 15px;
 }
 
-.position {
-  display: flex;
-  gap: 10px;
+.links {
+  list-style: none;
+  border-bottom: 1px solid #c1bfbf;
+  padding-bottom: 30px;
+  margin-bottom: 15px;
 }
 
-.item {
-  border: 1px solid #9f9999;
-  border-radius: 3px;
-  padding: 1px 8px;
+.link {
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 30px;
+  text-decoration: underline;
   cursor: pointer;
+  width: max-content;
 }
-.item:active {
-transform: translateY(1px);
+
+.link::before {
+  content: "\2022"; 
+  color: #7d7c7c; 
+  font-weight: bold; 
+  display: inline-block; 
+  width: 20px;
+  margin-left: -1em;
+}
+
+.update-position {
+  margin-bottom: 15px;
+}
+
+.switch-text {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.submit-link-btn {
+
 }
